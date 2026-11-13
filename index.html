@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rushmitha Parvathaneni | AI Engineer</title>
+<meta name="description" content="AI engineer building conversational AI, agents and data platforms on Google Cloud and AWS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#0f172a; --muted:#5b6478; --line:#e6e8f0; --bg:#ffffff; --soft:#f7f8fc;
+    --indigo:#4f46e5; --indigo-soft:#eef0ff;
+    --teal:#0d9488; --teal-soft:#e6f6f4;
+    --amber:#d97706; --amber-soft:#fdf3e3;
+    --rose:#e11d48; --rose-soft:#fdecf0;
+    --sky:#0284c7; --sky-soft:#e7f3fb;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.65 Inter, -apple-system, "Segoe UI", Arial, sans-serif; }
+  a { color:var(--indigo); }
+  .wrap { max-width:900px; margin:0 auto; padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
+  nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:5; }
+  nav .wrap { display:flex; gap:22px; height:60px; align-items:center; overflow-x:auto; }
+  nav a { text-decoration:none; font-size:14px; font-weight:500; white-space:nowrap; color:var(--muted); padding:4px 0; border-bottom:2px solid transparent; }
+  nav a:hover, nav a.active { color:var(--indigo); border-bottom-color:var(--indigo); }
+  nav .name { font-weight:700; color:var(--ink); margin-right:auto; border:0; }
+  nav .name span { color:var(--indigo); }
+  .hero { background:
+      radial-gradient(600px 300px at 85% 10%, rgba(79,70,229,.13), transparent 70%),
+      radial-gradient(500px 280px at 5% 90%, rgba(13,148,136,.12), transparent 70%),
+      linear-gradient(180deg, #fbfbff, #ffffff); border-bottom:1px solid var(--line); }
+  header { padding:84px 0 56px; }
+  .eyebrow { display:inline-block; font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--indigo); background:var(--indigo-soft); padding:5px 12px; border-radius:999px; margin:0 0 18px; font-weight:600; }
+  h1 { font-size:44px; line-height:1.12; margin:0 0 16px; letter-spacing:-0.025em; text-wrap:balance; }
+  h1 .hl { background:linear-gradient(90deg, var(--indigo), var(--teal)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead { font-size:19px; color:var(--muted); max-width:660px; margin:0 0 28px; }
+  .links { display:flex; flex-wrap:wrap; gap:10px; }
+  .btn { display:inline-block; padding:10px 18px; border:1.5px solid var(--line); background:#fff; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; color:var(--ink); transition:transform .15s, box-shadow .15s; }
+  .btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(15,23,42,.08); }
+  .btn.solid { background:var(--indigo); border-color:var(--indigo); color:#fff; }
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-top:46px; }
+  .stat { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; border-top:4px solid var(--c); }
+  .stat b { display:block; font-size:25px; letter-spacing:-0.01em; color:var(--c); }
+  .stat span { font-size:13px; color:var(--muted); }
+  section { padding:56px 0; }
+  section + section { border-top:1px solid var(--line); }
+  h2 { display:flex; align-items:center; gap:10px; font-size:13px; text-transform:uppercase; letter-spacing:.12em; margin:0 0 28px; color:var(--ink); }
+  h2::before { content:""; width:22px; height:4px; border-radius:2px; background:linear-gradient(90deg, var(--indigo), var(--teal)); }
+  h3 { font-size:18px; margin:0; line-height:1.35; }
+  p { margin:0 0 14px; }
+  .about p { max-width:690px; }
+  .timeline { position:relative; padding-left:26px; }
+  .timeline::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--line); }
+  .role { position:relative; margin-bottom:32px; }
+  .role:last-child { margin-bottom:0; }
+  .role::before { content:""; position:absolute; left:-26px; top:5px; width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid var(--c); }
+  .role-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:2px 16px; align-items:baseline; }
+  .role-head .org { color:var(--c); }
+  .meta { color:var(--muted); font-size:14px; }
+  ul { margin:10px 0 0; padding-left:20px; }
+  li { margin-bottom:6px; }
+  li::marker { color:var(--c, var(--indigo)); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(255px, 1fr)); gap:18px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; min-width:0; position:relative; overflow:hidden; transition:transform .15s, box-shadow .15s; }
+  .card::before { content:""; position:absolute; inset:0 0 auto; height:4px; background:var(--c); }
+  .card:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(15,23,42,.08); }
+  .card .where { align-self:flex-start; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--c); background:var(--cs); padding:3px 9px; border-radius:999px; margin-bottom:12px; }
+  .card p { margin:10px 0 16px; color:#3a4255; font-size:15px; flex:1; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag { font-size:12px; background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:2px 8px; color:#3a4255; }
+  .skills { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; }
+  .skill { border-radius:12px; padding:16px 18px; background:var(--cs); }
+  .skill b { display:block; font-size:14px; color:var(--c); margin-bottom:6px; }
+  .skill div { font-size:14.5px; color:#2b3245; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .list-plain { list-style:none; padding:0; margin:0; }
+  .list-plain li { padding:11px 0 11px 18px; border-bottom:1px solid var(--line); position:relative; }
+  .list-plain li::before { content:""; position:absolute; left:0; top:20px; width:8px; height:8px; border-radius:50%; background:var(--teal); }
+  .list-plain li:last-child { border-bottom:0; }
+  .contact-box { background:linear-gradient(120deg, var(--indigo), #6d28d9 55%, var(--teal)); color:#fff; border-radius:16px; padding:34px; }
+  .contact-box .meta { color:rgba(255,255,255,.82); }
+  .contact-box .btn { border-color:rgba(255,255,255,.5); background:transparent; color:#fff; }
+  .contact-box .btn.solid { background:#fff; color:var(--indigo); border-color:#fff; }
+  .cert { color:var(--ink); text-decoration:none; font-weight:600; border-bottom:1.5px solid var(--indigo-soft); }
+  .cert:hover { color:var(--indigo); border-bottom-color:var(--indigo); }
+  .cert span { color:var(--indigo); font-size:13px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .chip { font-size:12.5px; text-decoration:none; color:var(--c); background:var(--cs); border-radius:999px; padding:3px 10px; }
+  .chip:hover { text-decoration:underline; }
+  footer { padding:28px 0 44px; color:var(--muted); font-size:14px; }
+  .c-indigo { --c:var(--indigo); --cs:var(--indigo-soft); }
+  .c-teal { --c:var(--teal); --cs:var(--teal-soft); }
+  .c-amber { --c:var(--amber); --cs:var(--amber-soft); }
+  .c-rose { --c:var(--rose); --cs:var(--rose-soft); }
+  .c-sky { --c:var(--sky); --cs:var(--sky-soft); }
+  @media (max-width:640px) {
+    header { padding:52px 0 40px; }
+    h1 { font-size:33px; }
+    .stats { grid-template-columns:repeat(2, 1fr); }
+    .two { grid-template-columns:1fr; }
+    .contact-box { padding:24px; }
+  }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="name" href="#top">Rushmitha <span>Parvathaneni</span></a>
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#work">Work</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</div></nav>
+
+<div class="hero" id="top"><div class="wrap">
+<header>
+  <p class="eyebrow">AI Engineer · Data Scientist · San Francisco Bay Area</p>
+  <h1>I build <span class="hl">conversational AI and agents</span> that people actually use.</h1>
+  <p class="lead">I have 5+ years of Python, LLM and data work. Today I build Google ADK agents on GCP that answer 3,000+ conversations a month, and I'm building my team's first Dialogflow CX flow.</p>
+  <div class="links">
+    <a class="btn solid" href="mailto:rushmita1310@gmail.com">Email me</a>
+    <a class="btn" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="Rushmitha_Parvathaneni_Resume.pdf" target="_blank">Resume (PDF)</a>
+  </div>
+  <div class="stats">
+    <div class="stat c-indigo"><b>3,000+</b><span>conversations a month</span></div>
+    <div class="stat c-teal"><b>92%</b><span>retrieval hit rate</span></div>
+    <div class="stat c-amber"><b>48h → 12h</b><span>time to book a repair</span></div>
+    <div class="stat c-rose"><b>15 min</b><span>from commit to production</span></div>
+  </div>
+</header>
+</div></div>
+
+<div class="wrap">
+<section id="about" class="about">
+  <h2>About</h2>
+  <p>I started in data analysis, moved into data science on AWS pipelines for FedEx, and now spend most of my time on LLM agents and retrieval on Google Cloud.</p>
+  <p>What I like most is the part after the demo. That means building the test set, finding out why an agent sent a message to the wrong place, and fixing it so the next release is measurably better. I care about the boring things too, like input checks, masking personal data, a person approving before anything costs money, and dashboards that show when quality slips.</p>
+  <p>I have a master's in Data Analytics Engineering from Northeastern University, and I'm certified as an AWS Data Engineer and as a Microsoft Azure AI Engineer.</p>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="timeline">
+  <div class="role c-indigo">
+    <div class="role-head"><h3>Data Scientist (AI &amp; ML), <span class="org">Sunovee</span></h3><span class="meta">Sep 2024 to present · USA</span></div>
+    <ul>
+      <li>Build Google ADK agents and document retrieval on GCP for an AI property management assistant handling 3,000+ conversations a month.</li>
+      <li>Also built applicant screening, pay stub fraud checks and a lease renewal model. Details are in Selected work below.</li>
+      <li>Building the team's first Dialogflow CX flow for maintenance intake.</li>
+    </ul>
+  </div>
+  <div class="role c-teal">
+    <div class="role-head"><h3>Graduate Analytics Project, <span class="org">Wollaston's Campus Store</span></h3><span class="meta">Aug 2023 to Apr 2024 · Boston, MA</span></div>
+    <ul>
+      <li>Designed an Oracle database and FastAPI service for 1,200+ products and 300+ daily orders, with automatic reorder alerts.</li>
+    </ul>
+  </div>
+  <div class="role c-amber">
+    <div class="role-head"><h3>Data Scientist, <span class="org">Mphasis (client FedEx)</span></h3><span class="meta">Aug 2021 to Jul 2022 · India</span></div>
+    <ul>
+      <li>Built AWS pipelines and a delay model for delivery data, cutting manual processing by 70% and last-mile fuel costs by 20%.</li>
+    </ul>
+  </div>
+  <div class="role c-rose">
+    <div class="role-head"><h3>Data Analyst, <span class="org">Glamate</span></h3><span class="meta">May 2020 to Aug 2021 · India</span></div>
+    <ul>
+      <li>Built a skincare and haircare recommendation chatbot backed by review-mined product scores, raising recommendation accuracy by 20%.</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<section id="work">
+  <h2>Selected work</h2>
+  <div class="cards">
+    <div class="card c-indigo">
+      <div class="where">Sunovee</div>
+      <h3>Repair assistant</h3>
+      <p>A resident describes a problem in chat. The agent asks only for what's missing, creates the work order, estimates the cost from past invoices for that issue and area, and books a vendor once the manager approves. Booking time dropped from about 48 hours to about 12.</p>
+      <div class="tags"><span class="tag">Google ADK</span><span class="tag">Gemini 2.5</span><span class="tag">Cloud Run</span><span class="tag">FastAPI</span></div>
+    </div>
+    <div class="card c-teal">
+      <div class="where">Sunovee</div>
+      <h3>Document retrieval for an AI assistant</h3>
+      <p>Leases, policies and manuals are parsed, split into parent and child chunks, and searched with both vectors and keywords, filtered by property. Answers below a relevance cutoff are not given, which cut unsupported answers by 40%.</p>
+      <div class="tags"><span class="tag">DocLing</span><span class="tag">LlamaIndex</span><span class="tag">Qdrant</span><span class="tag">OpenAI embeddings</span></div>
+    </div>
+    <div class="card c-sky">
+      <div class="where">Sunovee</div>
+      <h3>Applicant screening and pay stub fraud checks</h3>
+      <p>Pulls applicants from Buildium, verifies landlords and income, and scores each application with clear rules so a manager makes the final call. Uploaded pay stubs go through rule-based forensic checks plus a Gemini vision check.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">PostgreSQL</span><span class="tag">Gemini Vision</span></div>
+    </div>
+    <div class="card c-rose">
+      <div class="where">Sunovee</div>
+      <h3>Lease renewal model</h3>
+      <p>A BigQuery ML model built on payment, maintenance and conversation history. It ranks the leases least likely to renew about 90 days ahead, so managers can reach out early. Slow repairs and large rent increases were the top drivers.</p>
+      <div class="tags"><span class="tag">BigQuery ML</span><span class="tag">SQL</span><span class="tag">Boosted trees</span></div>
+    </div>
+    <div class="card c-amber">
+      <div class="where">FedEx via Mphasis</div>
+      <h3>Delivery delay analytics</h3>
+      <p>A daily pipeline over package scans, routes and driver records, with a delay model that showed which counties ran late and where more drivers were needed.</p>
+      <div class="tags"><span class="tag">AWS Glue</span><span class="tag">PySpark</span><span class="tag">Redshift</span><span class="tag">Scikit-Learn</span></div>
+    </div>
+    <div class="card c-teal">
+      <div class="where">Northeastern</div>
+      <h3>Heart disease risk prediction</h3>
+      <p>Compared logistic regression, random forest and gradient boosting on clinical data, tuned for recall so fewer high-risk patients are missed.</p>
+      <div class="tags"><span class="tag">Scikit-Learn</span><span class="tag">Pandas</span><span class="tag">Classification</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill c-indigo"><b>Cloud</b><div>GCP (Cloud Run, Cloud Storage, BigQuery, Artifact Registry, Dialogflow CX), AWS (S3, Glue, Lambda, Redshift), Azure</div></div>
+    <div class="skill c-teal"><b>Conversational AI</b><div>Dialogflow CX, Google ADK, Gemini 2.5, OpenAI GPT-4o, RAG, LlamaIndex, Qdrant, Vapi</div></div>
+    <div class="skill c-sky"><b>Languages &amp; data</b><div>Python, SQL, PostgreSQL, MySQL, SQL Server, MongoDB, PySpark</div></div>
+    <div class="skill c-amber"><b>Machine learning</b><div>Scikit-Learn, PyTorch, TensorFlow, Hugging Face, BigQuery ML</div></div>
+    <div class="skill c-rose"><b>Engineering</b><div>FastAPI, REST APIs, webhooks, Docker, Jenkins, CI/CD, pytest, Git</div></div>
+    <div class="skill c-indigo"><b>Quality &amp; monitoring</b><div>Phoenix, RAGAS, Evidently AI, Prometheus, Grafana, Tableau, Power BI</div></div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="two">
+    <div>
+      <h2>Certifications</h2>
+      <ul class="list-plain">
+        <li><a class="cert" href="https://www.credly.com/badges/f1d97d89-9f32-4b27-87a9-08169c4a0ab3/public_url" target="_blank" rel="noopener">AWS Certified Data Engineer <span aria-hidden="true">↗</span></a><br><span class="meta">Amazon Web Services</span></li>
+        <li><a class="cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/AE54688DCF379DF4?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener">Azure AI Engineer (AI-102) <span aria-hidden="true">↗</span></a><br><span class="meta">Microsoft Certified</span></li>
+        <li><a class="cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/96284AAAA3148725?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener">Azure AI Apps and Agents Developer (AI-103) <span aria-hidden="true">↗</span></a><br><span class="meta">Microsoft Certified</span></li>
+        <li class="c-rose"><b>Databricks</b><div class="chips"><a class="chip" href="https://credentials.databricks.com/1f02cb05-6e3f-49b8-8de0-345850ccb0b6" target="_blank" rel="noopener">Generative AI Evaluation and Governance</a><a class="chip" href="https://credentials.databricks.com/ff11c708-9758-444f-8684-59facf1e01a5" target="_blank" rel="noopener">Application Deployment and Monitoring</a><a class="chip" href="https://credentials.databricks.com/100e3eed-b9f3-45ca-a6bc-836ffe20416a" target="_blank" rel="noopener">Single-Agent Applications</a><a class="chip" href="https://credentials.databricks.com/7989d309-5082-4a21-a313-3f5175839d7f" target="_blank" rel="noopener">Building Retrieval Agents</a><a class="chip" href="https://credentials.databricks.com/449c114b-8d9a-429b-bb05-cbef799e23f1" target="_blank" rel="noopener">AI Agent</a><a class="chip" href="https://credentials.databricks.com/db3f1405-4bc4-4485-a3ad-5d92f36e8cfd" target="_blank" rel="noopener">AI Fundamentals</a></div></li>
+        <li class="c-amber"><b>Anthropic</b><div class="chips"><a class="chip" href="https://verify.skilljar.com/c/h9wd5uxnvn6z" target="_blank" rel="noopener">Claude in Amazon Bedrock</a><a class="chip" href="https://verify.skilljar.com/c/bi22wjkcw2jz" target="_blank" rel="noopener">AI Fluency Framework and Foundations</a><a class="chip" href="https://verify.skilljar.com/c/nforcikwsyzy" target="_blank" rel="noopener">Claude 101</a></div></li>
+        <li class="c-sky"><b>Coursera</b><div class="chips"><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/FPVDM5VKFKQM" target="_blank" rel="noopener">SQL for Data Science, UC Davis</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/XMTDQRJ8G6PR" target="_blank" rel="noopener">Data Analytics for Business, University of Colorado</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/7YZ7NQGJW5DG" target="_blank" rel="noopener">Python Data Structures, University of Michigan</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/Z9T7AAY8GPXN" target="_blank" rel="noopener">Programming for Everybody, University of Michigan</a></div></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Education</h2>
+      <ul class="list-plain">
+        <li><b>MS, Data Analytics Engineering</b><br><span class="meta">Northeastern University, Boston · 2024</span></li>
+        <li><b>B.Tech, Electrical and Electronics Engineering</b><br><span class="meta">Manipal Institute of Technology · 2021</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="contact-box">
+    <p style="font-size:19px; font-weight:600; margin-bottom:8px">Hiring for AI engineering or data science? I'd like to hear about it.</p>
+    <p class="meta" style="margin-bottom:18px">The fastest way to reach me is by email.</p>
+    <div class="links">
+      <a class="btn solid" href="mailto:rushmita1310@gmail.com">rushmita1310@gmail.com</a>
+      <a class="btn" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">github.com/Rushmitha-dot</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer><div class="wrap">© 2026 Rushmitha Parvathaneni</div></footer>
+
+<script>
+  // highlight the nav link for the section in view
+  const links = [...document.querySelectorAll('nav a[href^="#"]:not(.name)')];
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
