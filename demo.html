@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repair Assistant Replay | Rushmitha Parvathaneni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme:dark; --bg:#07090a; --panel:#0e1213; --line:#1e2628; --ink:#d9e2e0; --head:#f2f5f4; --muted:#7f8c8a;
+    --amber:#ffb547; --amber-soft:#2b2110; --cyan:#67e8f9; --green:#4ade80; --red:#ff5d5d;
+    --soft:#0b0e0f; --indigo:#67e8f9; --indigo-soft:#0e2a2e; --teal:#4ade80; --teal-soft:#0f2a1b; --rose:#ff7a7a; --rose-soft:#2e1414; --sky:#67e8f9; --sky-soft:#0e2a2e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 "IBM Plex Sans", Arial, sans-serif; padding:22px max(16px, env(safe-area-inset-left)); }
+  [hidden] { display:none !important; }
+  .bar { display:flex; justify-content:space-between; align-items:center; gap:12px; font:500 12px "IBM Plex Mono", monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 auto 14px; max-width:1100px; }
+  .bar b { color:var(--amber); font-weight:600; }
+  .bar a { color:var(--cyan); text-decoration:none; }
+  #demo { max-width:1100px; margin:0 auto; }
+  /* demo */
+  .demo-intro { max-width:680px; color:var(--muted); }
+  .scenarios { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 22px; }
+  .scenarios button { font:inherit; font-size:14px; border:1.5px solid var(--line); background:#fff; color:var(--ink); border-radius:10px; padding:9px 14px; cursor:pointer; transition:border-color .15s, background .15s; }
+  .scenarios button:hover { border-color:var(--indigo); }
+  .scenarios button[aria-pressed="true"] { border-color:var(--indigo); background:var(--indigo-soft); color:var(--indigo); font-weight:600; }
+  .demo { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:20px; align-items:start; }
+  .phone { border:1px solid var(--line); border-radius:20px; background:var(--soft); overflow:hidden; }
+  .phone-top { background:#fff; border-bottom:1px solid var(--line); padding:12px 16px; font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .phone-top i { width:8px; height:8px; border-radius:50%; background:#22c55e; display:inline-block; }
+  .chat { height:380px; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; scroll-behavior:smooth; }
+  .msg { max-width:85%; padding:9px 13px; border-radius:14px; font-size:14px; line-height:1.45; animation:pop .25s ease; }
+  .msg.user { align-self:flex-end; background:var(--indigo); color:#fff; border-bottom-right-radius:4px; }
+  .msg.bot { align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .msg.sys { align-self:center; background:transparent; color:var(--muted); font-size:12.5px; padding:2px; }
+  .typing { align-self:flex-start; background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 14px; display:flex; gap:4px; }
+  .typing span { width:6px; height:6px; border-radius:50%; background:#b3b9c9; animation:blink 1s infinite; }
+  .typing span:nth-child(2) { animation-delay:.15s } .typing span:nth-child(3) { animation-delay:.3s }
+  @keyframes blink { 0%,80%,100% { opacity:.3 } 40% { opacity:1 } }
+  @keyframes pop { from { transform:translateY(6px); opacity:0 } to { transform:none; opacity:1 } }
+  .engine { border:1px solid var(--line); border-radius:20px; background:#fff; padding:18px; min-width:0; }
+  .rail { display:grid; grid-template-columns:repeat(6, 1fr); gap:6px; margin-bottom:16px; }
+  .step { text-align:center; font-size:11.5px; color:var(--muted); line-height:1.3; }
+  .step .dot { width:30px; height:30px; margin:0 auto 6px; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:13px; background:var(--soft); color:var(--muted); border:2px solid var(--line); transition:all .3s; }
+  .step.on .dot { background:var(--c); border-color:var(--c); color:#fff; box-shadow:0 0 0 5px var(--cs); }
+  .step.done .dot { background:var(--cs); border-color:var(--c); color:var(--c); }
+  .step.on { color:var(--ink); font-weight:600; }
+  .step.skip { opacity:.35; }
+  .panel { background:var(--soft); border-radius:12px; padding:14px 16px; min-height:220px; }
+  .panel h4 { margin:0 0 4px; font-size:15px; }
+  .panel .why { font-size:13.5px; color:var(--muted); margin:0 0 10px; }
+  .panel pre { margin:0; background:#0f172a; color:#e2e8f0; border-radius:10px; padding:12px 14px; font:12.5px/1.55 ui-monospace, "SF Mono", Menlo, monospace; overflow-x:auto; white-space:pre; }
+  .panel pre .k { color:#93c5fd } .panel pre .v { color:#fcd34d } .panel pre .c { color:#94a3b8 }
+  .range { margin-top:10px; }
+  .range-bar { position:relative; height:10px; border-radius:6px; background:#e5e7ef; margin:24px 0 6px; }
+  .range-bar .band { position:absolute; top:0; bottom:0; border-radius:6px; background:linear-gradient(90deg, var(--amber), #f59e0b); }
+  .range-bar .med { position:absolute; top:-6px; width:3px; height:22px; background:var(--ink); border-radius:2px; }
+  .range-bar .med::after { content:attr(data-l); position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; white-space:nowrap; }
+  .range-legend { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+  .approve { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .approve button { font:inherit; font-weight:600; font-size:14px; border-radius:8px; padding:9px 16px; cursor:pointer; border:1.5px solid var(--teal); background:var(--teal); color:#fff; }
+  .approve button.ghost { background:#fff; color:var(--ink); border-color:var(--line); }
+  .approve button:disabled { opacity:.5; cursor:default; }
+  .demo-foot { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; margin-top:12px; font-size:12.5px; color:var(--muted); }
+  .demo-foot button { font:inherit; font-size:13px; border:0; background:none; color:var(--indigo); cursor:pointer; text-decoration:underline; padding:0; }
+  @media (max-width:760px) { .demo { grid-template-columns:1fr; } .chat { height:300px; } .rail { grid-template-columns:repeat(3, 1fr); row-gap:12px; } }
+
+  #demo .demo-intro { color:var(--muted); max-width:720px; margin:0; }
+  #demo .scenarios button { background:var(--panel); color:var(--ink); border-color:var(--line); border-radius:4px; font-family:"IBM Plex Mono", monospace; font-size:13px; }
+  #demo .scenarios button[aria-pressed="true"] { background:var(--amber-soft); border-color:var(--amber); color:var(--amber); }
+  #demo .phone, #demo .engine { background:var(--panel); border-color:var(--line); border-radius:6px; }
+  #demo .phone-top { background:#0a0d0e; border-color:var(--line); color:var(--ink); font-family:"IBM Plex Mono", monospace; font-size:12px; letter-spacing:.06em; }
+  #demo .msg.bot, #demo .typing { background:#131819; border-color:var(--line); color:var(--ink); border-radius:8px; }
+  #demo .msg.user { background:#16313a; color:#e6fbff; border:1px solid #23505c; border-radius:8px; }
+  #demo .msg.sys { color:var(--amber); font-family:"IBM Plex Mono", monospace; }
+  #demo .panel { background:#0a0d0e; border:1px solid var(--line); border-radius:4px; }
+  #demo .panel h4 { color:var(--head); font-family:"IBM Plex Mono", monospace; font-size:14px; letter-spacing:.02em; }
+  #demo .panel pre { background:#050707; border:1px solid var(--line); }
+  #demo .step .dot { background:#0a0d0e; border-color:var(--line); border-radius:4px; font-family:"IBM Plex Mono", monospace; }
+  #demo .step.on .dot { border-radius:4px; }
+  #demo .range-bar { background:#1f2728; }
+  #demo .range-bar .med { background:#fff; } #demo .range-bar .med::after { color:#fff; }
+  #demo .approve button { background:var(--green); border-color:var(--green); color:#04130a; border-radius:4px; }
+  #demo .approve button.ghost { background:transparent; color:var(--ink); border-color:var(--line); }
+  #demo .demo-foot { font-family:"IBM Plex Mono", monospace; font-size:11.5px; }
+  #demo .demo-foot button { color:var(--cyan); }
+  .c-indigo { --c:var(--cyan); --cs:var(--indigo-soft); } .c-teal { --c:var(--green); --cs:var(--teal-soft); } .c-amber { --c:var(--amber); --cs:var(--amber-soft); } .c-rose { --c:var(--rose); --cs:var(--rose-soft); } .c-sky { --c:var(--cyan); --cs:var(--sky-soft); }
+  body.rec .bar a, body.rec #demo .demo-intro { display:none; }
+  body.rec { padding:16px 20px; }
+</style>
+</head>
+<body>
+<div class="bar"><span><b>Replay</b> · repair_agent · simulated data, real steps</span><a href="./">← Back to console</a></div>
+<div id="demo">
+  <p class="demo-intro">This is a simplified replay of the repair assistant I built at Sunovee. Pick a problem and watch what happens behind the chat. The data is made up, but the steps are the real ones.</p>
+  <div class="scenarios" role="group" aria-label="Pick a repair problem">
+    <button type="button" data-s="ac" aria-pressed="true">❄️ AC isn't cooling</button>
+    <button type="button" data-s="sink" aria-pressed="false">🚰 Sink leaking</button>
+    <button type="button" data-s="flood" aria-pressed="false">🚨 Water from ceiling</button>
+  </div>
+  <div class="demo">
+    <div class="phone">
+      <div class="phone-top"><i></i> Resident chat · Unit 4B</div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+    </div>
+    <div class="engine">
+      <div class="rail" id="rail">
+        <div class="step c-indigo"><div class="dot">1</div>Message in</div>
+        <div class="step c-teal"><div class="dot">2</div>Pull out details</div>
+        <div class="step c-sky"><div class="dot">3</div>Ask what's missing</div>
+        <div class="step c-amber"><div class="dot">4</div>Estimate cost</div>
+        <div class="step c-rose"><div class="dot">5</div>Manager approves</div>
+        <div class="step c-indigo"><div class="dot">6</div>Vendor booked</div>
+      </div>
+      <div class="panel" id="panel"></div>
+      <div class="demo-foot"><span>Google ADK · Gemini 2.5 · FastAPI on Cloud Run · PostgreSQL</span><button type="button" id="replay">Replay</button></div>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const REC = new URLSearchParams(location.search).has('rec');
+  if (REC) document.body.classList.add('rec');
+  const $ = (q, el = document) => el.querySelector(q);
+  const $$ = (q, el = document) => [...el.querySelectorAll(q)];
+  /* ---------- repair demo ---------- */
+  const fmt = n => '$' + n.toLocaleString();
+  const S = {
+    ac: {
+      user: "Hi, the AC in my bedroom has been blowing warm air since yesterday.",
+      fields: { issue: "AC blowing warm air", category: "HVAC", location: "bedroom", urgency: "high", unit: "4B" },
+      missing: "availability",
+      ask: "Sorry about that, warm air is no fun. When can a technician come in? For example, tomorrow 9–12 or 1–5.",
+      reply: "Tomorrow afternoon works.",
+      est: { lo: 327, med: 362, hi: 406, n: 14, parts: 120, hours: 1.5, rate: 110, trip: 75 },
+      vendor: "CoolAir HVAC", slot: "Tomorrow, 1–3 PM"
+    },
+    sink: {
+      user: "The pipe under my kitchen sink is dripping. I put a bucket under it, and I'm free any weekday after 4.",
+      fields: { issue: "pipe leaking under kitchen sink", category: "Plumbing", location: "kitchen", urgency: "medium", unit: "4B", availability: "weekdays after 4 PM" },
+      missing: null,
+      est: { lo: 145, med: 180, hi: 235, n: 22, parts: 35, hours: 1, rate: 95, trip: 50 },
+      vendor: "RapidFlow Plumbing", slot: "Thursday, 4–6 PM"
+    },
+    flood: {
+      user: "Water is pouring through my ceiling light!!",
+      fields: { issue: "water coming through ceiling light", category: "Plumbing / Electrical", location: "living room", urgency: "emergency", unit: "4B" },
+      emergency: true
+    }
+  };
+  const chat = $('#chat'), panel = $('#panel'), steps = $$('#rail .step');
+  let timers = [], cur = 'ac', run = 0;
+  const clear = () => { timers.forEach(clearTimeout); timers = []; };
+  const wait = (ms, id) => new Promise(res => timers.push(setTimeout(() => res(id === run), ms)));
+  const esc = t => t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  function bubble(kind, text) { const d = document.createElement('div'); d.className = 'msg ' + kind; d.innerHTML = text; chat.appendChild(d); chat.scrollTop = chat.scrollHeight; }
+  async function botSay(text, id) {
+    const t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<span></span><span></span><span></span>';
+    chat.appendChild(t); chat.scrollTop = chat.scrollHeight;
+    const ok = await wait(900, id); t.remove(); if (ok) bubble('bot', text); return ok;
+  }
+  function setStep(i, skip = []) {
+    steps.forEach((s, j) => { s.classList.toggle('on', j === i); s.classList.toggle('done', j < i && !skip.includes(j)); s.classList.toggle('skip', skip.includes(j)); });
+  }
+  const json = o => '<pre>{\n' + Object.entries(o).map(([k, v]) => `  <span class="k">"${k}"</span>: <span class="v">"${esc(String(v))}"</span>`).join(',\n') + '\n}</pre>';
+  function show(title, why, body = '') { panel.innerHTML = `<h4>${title}</h4><p class="why">${why}</p>${body}`; }
+
+  async function play(key) {
+    clear(); run++; const id = run; cur = key; const sc = S[key];
+    chat.innerHTML = ''; setStep(-1);
+    $$('.scenarios button').forEach(b => b.setAttribute('aria-pressed', b.dataset.s === key));
+    bubble('user', esc(sc.user));
+    setStep(0);
+    show('1 · Message in', 'A router agent reads the message and sends it to the repair agent, which is the part I built.', '<pre><span class="c"># route</span>\n<span class="k">intent</span>: <span class="v">"maintenance_request"</span>  →  <span class="v">repair_agent</span></pre>');
+    if (!await wait(1700, id)) return;
+
+    setStep(1);
+    show('2 · Pull out the details', 'Gemini fills a fixed schema from the free text. The code checks every field before anything is saved.', json(sc.fields));
+    if (!await wait(2300, id)) return;
+
+    if (sc.emergency) {
+      setStep(5, [2, 3, 4]);
+      show('Emergency path', "Urgency is \"emergency\", so the normal steps are skipped. The on-call manager is paged right away, and the resident gets safety steps first.",
+        '<pre><span class="k">urgency</span>: <span class="v">"emergency"</span>\n<span class="k">action</span>: <span class="v">page_on_call_manager()</span>\n<span class="k">skip</span>: <span class="v">estimate, approval queue</span></pre>');
+      if (!await botSay("That sounds serious. Please switch off the breaker for that room and stay away from the light. I've alerted the on-call manager, and someone will call you within 15 minutes.", id)) return;
+      if (!await wait(900, id)) return;
+      bubble('sys', '📟 On-call manager paged · emergency vendor dispatched');
+      steps[5].classList.add('done');
+      return;
+    }
+
+    setStep(2);
+    if (sc.missing) {
+      show("3 · Ask only what's missing", `Everything except <b>${sc.missing}</b> is already known, so the agent asks one question instead of a long form.`, '<pre><span class="k">missing</span>: [<span class="v">"availability"</span>]</pre>');
+      if (!await botSay(sc.ask, id)) return;
+      if (!await wait(1100, id)) return;
+      bubble('user', esc(sc.reply));
+      if (!await wait(900, id)) return;
+    } else {
+      show("3 · Ask only what's missing", 'The resident already gave everything, availability included, so this step asks nothing.', '<pre><span class="k">missing</span>: []   <span class="c"># no questions needed</span></pre>');
+      if (!await wait(1700, id)) return;
+    }
+
+    setStep(3);
+    const e = sc.est, span = e.hi - e.lo, pad = span * 0.6, min = e.lo - pad, max = e.hi + pad, pc = v => ((v - min) / (max - min) * 100).toFixed(1) + '%';
+    show('4 · Estimate the cost', `Based on ${e.n} past invoices for this kind of job in this area. The model doesn't do the math. Code does: parts + hours × rate + trip fee, from the 25th to 75th percentile.`,
+      `<div class="range"><div class="range-bar"><div class="band" style="left:${pc(e.lo)};right:calc(100% - ${pc(e.hi)})"></div><div class="med" style="left:${pc(e.med)}" data-l="${fmt(e.med)} likely"></div></div>
+       <div class="range-legend"><span>${fmt(e.lo)} low</span><span>${fmt(e.hi)} high</span></div></div>
+       <pre style="margin-top:12px"><span class="c"># median job</span>\n${fmt(e.parts)} parts + ${e.hours} h × ${fmt(e.rate)} + ${fmt(e.trip)} trip = <span class="v">${fmt(e.parts + e.hours * e.rate + e.trip)}</span></pre>`);
+    if (!await botSay(`Thanks! I've logged this as a work order. The typical cost for this kind of repair is ${fmt(e.lo)}–${fmt(e.hi)}. Your property manager will confirm the booking shortly.`, id)) return;
+    if (!await wait(1200, id)) return;
+
+    setStep(4);
+    show('5 · Manager approves', 'Nothing that costs money happens without a person. A check runs before the booking tool and stops until the manager says yes. You be the manager:',
+      `<div class="approve"><button type="button" id="ok">Approve ${fmt(e.lo)}–${fmt(e.hi)}</button><button type="button" class="ghost" id="no">Ask for another quote</button></div>`);
+    const decided = await new Promise(res => {
+      $('#ok').onclick = () => res('ok'); $('#no').onclick = () => res('no');
+      timers.push(setTimeout(() => res(id === run ? 'ok' : null), REC ? 2200 : 12000));
+    });
+    if (id !== run || !decided) return;
+    $$('#panel .approve button').forEach(b => b.disabled = true);
+    if (decided === 'no') {
+      show('5 · Manager asked for another quote', 'The booking tool stays blocked. The request goes back to the vendor list, and the resident is told the booking is still in progress.', '<pre><span class="k">approval</span>: <span class="v">"rejected"</span>  →  <span class="v">request_second_quote()</span></pre>');
+      bubble('sys', 'Manager asked for a second quote');
+      return;
+    }
+    bubble('sys', '✅ Manager approved');
+
+    setStep(5);
+    show('6 · Vendor booked', "The booking tool picks a vendor with an open slot that matches the resident's time, books it, and saves the real invoice later so future estimates get better.",
+      `<pre><span class="k">vendor</span>: <span class="v">"${sc.vendor}"</span>\n<span class="k">slot</span>: <span class="v">"${sc.slot}"</span>\n<span class="k">status</span>: <span class="v">"scheduled"</span></pre>`);
+    if (!await botSay(`Good news, you're booked. ${sc.vendor} will come ${sc.slot.replace(',', ' at')}. You'll get a reminder the day before.`, id)) return;
+    steps[5].classList.add('done');
+  }
+
+  $$('.scenarios button').forEach(b => b.addEventListener('click', () => play(b.dataset.s)));
+  $('#replay').addEventListener('click', () => play(cur));
+  // start when the demo scrolls into view
+  let started = false;
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting && !started) { started = true; play('ac'); o.disconnect(); } }, { threshold: .35 }).observe($('#demo'));
+
+
+  if (REC) {
+    const order = ['ac', 'sink', 'flood']; let k = 0;
+    const loop = () => { play(order[k % 3]); k++; setTimeout(loop, [26000, 22000, 11000][(k - 1) % 3]); };
+    setTimeout(loop, 300);
+  }
+})();
+</script>
+</body>
+</html>

@@ -3,275 +3,906 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rushmitha Parvathaneni | AI Engineer</title>
-<meta name="description" content="AI engineer building conversational AI, agents and data platforms on Google Cloud and AWS.">
+<title>Rushmitha Parvathaneni · Mission Control</title>
+<meta name="description" content="AI engineer. The operations console for the agents and data systems I build and run.">
+<meta property="og:title" content="Rushmitha Parvathaneni · Mission Control">
+<meta property="og:description" content="AI engineer. The operations console for the agents and data systems I build and run.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink:#0f172a; --muted:#5b6478; --line:#e6e8f0; --bg:#ffffff; --soft:#f7f8fc;
-    --indigo:#4f46e5; --indigo-soft:#eef0ff;
-    --teal:#0d9488; --teal-soft:#e6f6f4;
-    --amber:#d97706; --amber-soft:#fdf3e3;
-    --rose:#e11d48; --rose-soft:#fdecf0;
-    --sky:#0284c7; --sky-soft:#e7f3fb;
+    color-scheme: dark;
+    --bg:#07090a; --bg2:#0b0e0f; --panel:#0e1213; --line:#1c2426; --line2:#2a3437;
+    --ink:#d6dfdd; --head:#f3f6f5; --muted:#7c8987; --dim:#566260;
+    --amber:#ffb547; --amber-d:rgba(255,181,71,.12); --cyan:#67e8f9; --cyan-d:rgba(103,232,249,.1); --green:#4ade80; --red:#ff5d5d;
+    --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace; --disp:"Barlow Condensed", "Arial Narrow", sans-serif;
   }
   * { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.65 Inter, -apple-system, "Segoe UI", Arial, sans-serif; }
-  a { color:var(--indigo); }
-  .wrap { max-width:900px; margin:0 auto; padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
-  nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:5; }
-  nav .wrap { display:flex; gap:22px; height:60px; align-items:center; overflow-x:auto; }
-  nav a { text-decoration:none; font-size:14px; font-weight:500; white-space:nowrap; color:var(--muted); padding:4px 0; border-bottom:2px solid transparent; }
-  nav a:hover, nav a.active { color:var(--indigo); border-bottom-color:var(--indigo); }
-  nav .name { font-weight:700; color:var(--ink); margin-right:auto; border:0; }
-  nav .name span { color:var(--indigo); }
-  .hero { background:
-      radial-gradient(600px 300px at 85% 10%, rgba(79,70,229,.13), transparent 70%),
-      radial-gradient(500px 280px at 5% 90%, rgba(13,148,136,.12), transparent 70%),
-      linear-gradient(180deg, #fbfbff, #ffffff); border-bottom:1px solid var(--line); }
-  header { padding:84px 0 56px; }
-  .eyebrow { display:inline-block; font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--indigo); background:var(--indigo-soft); padding:5px 12px; border-radius:999px; margin:0 0 18px; font-weight:600; }
-  h1 { font-size:44px; line-height:1.12; margin:0 0 16px; letter-spacing:-0.025em; text-wrap:balance; }
-  h1 .hl { background:linear-gradient(90deg, var(--indigo), var(--teal)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .lead { font-size:19px; color:var(--muted); max-width:660px; margin:0 0 28px; }
-  .links { display:flex; flex-wrap:wrap; gap:10px; }
-  .btn { display:inline-block; padding:10px 18px; border:1.5px solid var(--line); background:#fff; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; color:var(--ink); transition:transform .15s, box-shadow .15s; }
-  .btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(15,23,42,.08); }
-  .btn.solid { background:var(--indigo); border-color:var(--indigo); color:#fff; }
-  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-top:46px; }
-  .stat { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; border-top:4px solid var(--c); }
-  .stat b { display:block; font-size:25px; letter-spacing:-0.01em; color:var(--c); }
-  .stat span { font-size:13px; color:var(--muted); }
-  section { padding:56px 0; }
-  section + section { border-top:1px solid var(--line); }
-  h2 { display:flex; align-items:center; gap:10px; font-size:13px; text-transform:uppercase; letter-spacing:.12em; margin:0 0 28px; color:var(--ink); }
-  h2::before { content:""; width:22px; height:4px; border-radius:2px; background:linear-gradient(90deg, var(--indigo), var(--teal)); }
-  h3 { font-size:18px; margin:0; line-height:1.35; }
-  p { margin:0 0 14px; }
-  .about p { max-width:690px; }
-  .timeline { position:relative; padding-left:26px; }
-  .timeline::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--line); }
-  .role { position:relative; margin-bottom:32px; }
-  .role:last-child { margin-bottom:0; }
-  .role::before { content:""; position:absolute; left:-26px; top:5px; width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid var(--c); }
-  .role-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:2px 16px; align-items:baseline; }
-  .role-head .org { color:var(--c); }
-  .meta { color:var(--muted); font-size:14px; }
-  ul { margin:10px 0 0; padding-left:20px; }
-  li { margin-bottom:6px; }
-  li::marker { color:var(--c, var(--indigo)); }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(255px, 1fr)); gap:18px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; min-width:0; position:relative; overflow:hidden; transition:transform .15s, box-shadow .15s; }
-  .card::before { content:""; position:absolute; inset:0 0 auto; height:4px; background:var(--c); }
-  .card:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(15,23,42,.08); }
-  .card .where { align-self:flex-start; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--c); background:var(--cs); padding:3px 9px; border-radius:999px; margin-bottom:12px; }
-  .card p { margin:10px 0 16px; color:#3a4255; font-size:15px; flex:1; }
-  .tags { display:flex; flex-wrap:wrap; gap:6px; }
-  .tag { font-size:12px; background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:2px 8px; color:#3a4255; }
-  .skills { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; }
-  .skill { border-radius:12px; padding:16px 18px; background:var(--cs); }
-  .skill b { display:block; font-size:14px; color:var(--c); margin-bottom:6px; }
-  .skill div { font-size:14.5px; color:#2b3245; }
-  .two { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-  .list-plain { list-style:none; padding:0; margin:0; }
-  .list-plain li { padding:11px 0 11px 18px; border-bottom:1px solid var(--line); position:relative; }
-  .list-plain li::before { content:""; position:absolute; left:0; top:20px; width:8px; height:8px; border-radius:50%; background:var(--teal); }
-  .list-plain li:last-child { border-bottom:0; }
-  .contact-box { background:linear-gradient(120deg, var(--indigo), #6d28d9 55%, var(--teal)); color:#fff; border-radius:16px; padding:34px; }
-  .contact-box .meta { color:rgba(255,255,255,.82); }
-  .contact-box .btn { border-color:rgba(255,255,255,.5); background:transparent; color:#fff; }
-  .contact-box .btn.solid { background:#fff; color:var(--indigo); border-color:#fff; }
-  .cert { color:var(--ink); text-decoration:none; font-weight:600; border-bottom:1.5px solid var(--indigo-soft); }
-  .cert:hover { color:var(--indigo); border-bottom-color:var(--indigo); }
-  .cert span { color:var(--indigo); font-size:13px; }
-  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-  .chip { font-size:12.5px; text-decoration:none; color:var(--c); background:var(--cs); border-radius:999px; padding:3px 10px; }
-  .chip:hover { text-decoration:underline; }
-  footer { padding:28px 0 44px; color:var(--muted); font-size:14px; }
-  .c-indigo { --c:var(--indigo); --cs:var(--indigo-soft); }
-  .c-teal { --c:var(--teal); --cs:var(--teal-soft); }
-  .c-amber { --c:var(--amber); --cs:var(--amber-soft); }
-  .c-rose { --c:var(--rose); --cs:var(--rose-soft); }
-  .c-sky { --c:var(--sky); --cs:var(--sky-soft); }
-  @media (max-width:640px) {
-    header { padding:52px 0 40px; }
-    h1 { font-size:33px; }
-    .stats { grid-template-columns:repeat(2, 1fr); }
-    .two { grid-template-columns:1fr; }
-    .contact-box { padding:24px; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15.5px/1.6 "IBM Plex Sans", Arial, sans-serif; overflow-x:hidden; }
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+    background-size:32px 32px; }
+  body::after { content:""; position:fixed; inset:0; z-index:90; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  a { color:inherit; }
+  [hidden] { display:none !important; }
+  ::selection { background:var(--amber); color:#000; }
+  .wrap { position:relative; z-index:1; max-width:1280px; margin:0 auto; padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
+  .lbl { font:600 11px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .lbl b { color:var(--amber); font-weight:600; }
+  .led { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px rgba(74,222,128,.14), 0 0 10px rgba(74,222,128,.6); vertical-align:middle; }
+  .led.amber { background:var(--amber); box-shadow:0 0 0 3px rgba(255,181,71,.14), 0 0 10px rgba(255,181,71,.6); }
+  .led.cyan { background:var(--cyan); box-shadow:0 0 0 3px rgba(103,232,249,.14), 0 0 10px rgba(103,232,249,.6); }
+  .blink { animation:blink 1.6s steps(2) infinite; } @keyframes blink { 50% { opacity:.25 } }
+
+  .pnl { position:relative; background:linear-gradient(180deg, rgba(14,18,19,.92), rgba(10,13,14,.92)); border:1px solid var(--line); }
+  .pnl::before, .pnl::after { content:""; position:absolute; width:10px; height:10px; border-style:solid; pointer-events:none; }
+  .pnl::before { top:-1px; left:-1px; border-width:1px 0 0 1px; border-color:var(--amber); }
+  .pnl::after { bottom:-1px; right:-1px; border-width:0 1px 1px 0; border-color:var(--amber); }
+  .pnl-h { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid var(--line); }
+
+  /* boot */
+  .boot { position:fixed; inset:0; z-index:100; background:#030404; display:flex; align-items:center; justify-content:center; padding:24px; cursor:pointer; transition:opacity .5s; }
+  .boot.out { opacity:0; pointer-events:none; }
+  .boot pre { margin:0; font:14px/1.75 var(--mono); color:var(--ink); width:min(640px, 100%); white-space:pre-wrap; }
+  .boot .ok { color:var(--green); } .boot .am { color:var(--amber); } .boot .c { color:var(--dim); }
+  .boot small { position:fixed; bottom:20px; left:0; right:0; text-align:center; font:11px var(--mono); letter-spacing:.2em; color:var(--dim); }
+  .caret { display:inline-block; width:8px; height:15px; background:var(--amber); vertical-align:-2px; animation:blink 1s steps(2) infinite; }
+
+  /* top bar */
+  .top { position:sticky; top:0; z-index:40; background:rgba(5,7,8,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .top .wrap { display:flex; align-items:center; gap:22px; height:52px; }
+  .brand { font:700 15px var(--mono); letter-spacing:.08em; text-decoration:none; color:var(--head); white-space:nowrap; }
+  .brand span { color:var(--amber); }
+  .tabs { display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+  .tabs a { font:500 11.5px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:7px 10px; white-space:nowrap; border:1px solid transparent; }
+  .tabs a:hover { color:var(--head); }
+  .tabs a.on { color:var(--amber); border-color:rgba(255,181,71,.35); background:var(--amber-d); }
+  .clock { margin-left:auto; display:flex; gap:16px; align-items:center; font:500 12px var(--mono); color:var(--ink); white-space:nowrap; }
+  .clock .tz { color:var(--dim); }
+
+  /* hero */
+  .hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:20px; padding:46px 0 10px; }
+  .op .lbl { display:block; line-height:1.7; }
+  .idrow { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+  .idpic { position:relative; margin:0; width:112px; height:112px; flex:0 0 auto; border:1px solid var(--line2); padding:4px; background:var(--panel); }
+  .idpic::before, .idpic::after { content:""; position:absolute; width:12px; height:12px; border:solid var(--amber); }
+  .idpic::before { top:-2px; left:-2px; border-width:2px 0 0 2px; } .idpic::after { bottom:-2px; right:-2px; border-width:0 2px 2px 0; }
+  .idpic img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.35) contrast(1.05); transition:filter .3s; }
+  .idpic:hover img { filter:none; }
+  .op h1 { font:800 clamp(56px, 8.4vw, 124px)/.86 var(--disp); text-transform:uppercase; letter-spacing:-.01em; margin:0; color:var(--head); }
+  .op h1 .sur { color:transparent; -webkit-text-stroke:1.4px var(--head); }
+  .op .role { font:500 15px var(--mono); color:var(--amber); margin:18px 0 0; letter-spacing:.04em; }
+  .op .bio { font-size:18px; color:var(--ink); max-width:600px; margin:14px 0 24px; }
+  .op .bio em { font-style:normal; color:var(--head); border-bottom:1px dashed var(--line2); }
+  .acts { display:flex; flex-wrap:wrap; gap:10px; }
+  .act { font:600 12.5px var(--mono); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; padding:12px 16px; border:1px solid var(--line2); color:var(--head); background:var(--bg2); cursor:pointer; transition:all .15s; }
+  .act:hover { border-color:var(--amber); color:var(--amber); }
+  .act.pri { background:var(--amber); border-color:var(--amber); color:#120c02; }
+  .act.pri:hover { background:#ffc670; color:#120c02; }
+  .act .k { opacity:.6; margin-left:6px; }
+
+  .sys .rows { padding:6px 0; }
+  .sys .r { display:grid; grid-template-columns:18px minmax(0,1fr) auto; gap:10px; align-items:center; padding:8px 14px; font:13px var(--mono); border-bottom:1px dashed rgba(255,255,255,.04); }
+  .sys .r:last-child { border-bottom:0; }
+  .sys .r .n { color:var(--head); }
+  .sys .r .s { font-size:11px; letter-spacing:.12em; color:var(--green); }
+  .sys .r .s.am { color:var(--amber); } .sys .r .s.cy { color:var(--cyan); }
+  .tele { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); }
+  .tele div { padding:14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .tele div:nth-child(2n) { border-right:0; }
+  .tele div:nth-last-child(-n+2) { border-bottom:0; }
+  .tele b { display:block; font:700 34px/1 var(--disp); color:var(--head); letter-spacing:.01em; }
+  .tele span { font:11px/1.35 var(--mono); color:var(--muted); letter-spacing:.04em; }
+  .tele i { display:block; height:3px; margin-top:10px; background:var(--line); position:relative; overflow:hidden; }
+  .tele i::after { content:""; position:absolute; inset:0 auto 0 0; width:var(--w); background:var(--amber); transition:width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .note { font:12px/1.5 var(--mono); color:var(--dim); padding:10px 14px; border-top:1px solid var(--line); }
+
+  /* robot floor */
+  .botlayer { position:fixed; inset:0; z-index:45; pointer-events:none; overflow:hidden; }
+  .bot { position:absolute; top:0; left:0; width:58px; cursor:grab; background:none; border:0; padding:0; will-change:transform; pointer-events:auto; touch-action:none; filter:drop-shadow(0 8px 10px rgba(0,0,0,.55)); }
+  .bot svg { display:block; width:58px; height:auto; overflow:visible; }
+  .bot.held { cursor:grabbing; z-index:2; filter:drop-shadow(0 22px 18px rgba(0,0,0,.6)); }
+  .bot.held .legL, .bot.held .legR { animation:dangle .35s ease-in-out infinite alternate; }
+  .bot.held .body { transform:rotate(-8deg); transform-box:fill-box; transform-origin:50% 0; }
+  @keyframes dangle { from { transform:rotate(-18deg) } to { transform:rotate(18deg) } }
+  .bot.landed .body { animation:land .4s ease; } @keyframes land { 30% { transform:translateY(4px) scaleY(.92) } }
+  .roam-hint { font:12px var(--mono); color:var(--dim); margin:16px 0 0; }
+  .roam-hint b { color:var(--amber); font-weight:500; }
+  .bot .flip { transition:transform .25s; transform-origin:50% 50%; }
+  .bot.left .flip { transform:scaleX(-1); }
+  .bot .legL, .bot .legR { transform-box:fill-box; transform-origin:50% 0; }
+  .bot.walk .legL { animation:stepA .5s ease-in-out infinite; } .bot.walk .legR { animation:stepB .5s ease-in-out infinite; }
+  .bot.walk .body { animation:bob .5s ease-in-out infinite; }
+  .bot.work .arm { transform-box:fill-box; transform-origin:10% 20%; animation:wave .5s ease-in-out infinite; }
+  .bot .eye { transform-box:fill-box; transform-origin:50% 50%; animation:blinkEye 4.5s infinite; }
+  @keyframes stepA { 0%,100% { transform:rotate(14deg) } 50% { transform:rotate(-14deg) } }
+  @keyframes stepB { 0%,100% { transform:rotate(-14deg) } 50% { transform:rotate(14deg) } }
+  @keyframes bob { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-2px) } }
+  @keyframes wave { 0%,100% { transform:rotate(0) } 50% { transform:rotate(-35deg) } }
+  @keyframes blinkEye { 0%,92%,100% { transform:scaleY(1) } 95% { transform:scaleY(.1) } }
+  .bot .tag { position:absolute; left:50%; top:100%; transform:translateX(-50%); margin-top:4px; font:600 9.5px var(--mono); letter-spacing:.08em; color:var(--dim); white-space:nowrap; text-transform:uppercase; }
+  .bot .tag { opacity:0; transition:opacity .2s; background:rgba(7,9,10,.85); padding:1px 5px; }
+  .bot:hover .tag, .bot:focus-visible .tag, .bot.held .tag { opacity:1; color:var(--amber); }
+  .bot:focus-visible { outline:1px dashed var(--amber); outline-offset:4px; }
+  .bubble { position:absolute; bottom:100%; left:50%; transform:translateX(-50%) translateY(4px); margin-bottom:8px; background:var(--panel); border:1px solid var(--line2); color:var(--ink); font:11.5px/1.35 var(--mono); padding:6px 9px; white-space:nowrap; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none; }
+  .bubble::after { content:""; position:absolute; top:100%; left:50%; margin-left:-5px; border:5px solid transparent; border-top-color:var(--line2); }
+  .bot.talk .bubble { opacity:1; transform:translateX(-50%); }
+
+  /* ticker */
+  .ticker { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#050607; overflow:hidden; position:relative; z-index:1; }
+  .ticker .lane { display:flex; gap:44px; width:max-content; padding:10px 0 10px 130px; animation:tick 70s linear infinite; font:12.5px var(--mono); color:var(--muted); white-space:nowrap; }
+  .ticker:hover .lane { animation-play-state:paused; }
+  .ticker b { color:var(--cyan); font-weight:500; } .ticker em { color:var(--green); font-style:normal; } .ticker u { color:var(--amber); text-decoration:none; }
+  .ticker .tag { position:absolute; left:0; top:0; bottom:0; display:flex; align-items:center; padding:0 14px; background:var(--amber); color:#120c02; font:700 11px var(--mono); letter-spacing:.14em; z-index:2; }
+  @keyframes tick { to { transform:translateX(-50%); } }
+
+  section { padding:70px 0 10px; scroll-margin-top:56px; }
+  .sec-h { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
+  .sec-h h2 { font:800 clamp(36px, 4.6vw, 58px)/.9 var(--disp); text-transform:uppercase; margin:6px 0 0; color:var(--head); }
+  .sec-h p { margin:0; max-width:460px; color:var(--muted); font-size:14.5px; }
+
+  /* missions */
+  .mission { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); margin-bottom:22px; scroll-margin-top:70px; }
+  .mission.ping { animation:ping 1.2s ease 2; }
+  @keyframes ping { 50% { border-color:var(--amber); box-shadow:0 0 0 1px var(--amber), 0 0 30px rgba(255,181,71,.25); } }
+  .mission .mon { border-right:1px solid var(--line); background:#040506; display:flex; flex-direction:column; min-width:0; }
+  .mon-h { display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--line); font:11px var(--mono); letter-spacing:.12em; color:var(--muted); text-transform:uppercase; }
+  .mon-h .rec { color:var(--red); } .mon-h .rec::before { content:"● "; animation:blink 1.2s steps(2) infinite; }
+  .screen { position:relative; flex:1; min-height:300px; overflow:hidden; }
+  .screen video { display:block; width:100%; height:100%; object-fit:cover; object-position:top left; }
+  .screen::after { content:""; position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); opacity:.35; }
+  .term { position:absolute; inset:0; padding:14px 16px; font:12.5px/1.6 var(--mono); color:#9fb3ae; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; }
+  .term .l { white-space:pre; overflow:hidden; text-overflow:ellipsis; }
+  .term .hd { color:var(--amber); } .term .gd { color:var(--green); } .term .er { color:var(--red); } .term .cy { color:var(--cyan); } .term .wt { color:var(--head); }
+  .viz { position:absolute; inset:0; padding:18px; display:flex; flex-direction:column; gap:10px; justify-content:center; font:12.5px var(--mono); }
+  .viz .q { color:var(--head); border:1px solid var(--line2); padding:8px 10px; align-self:flex-start; }
+  .viz .chunks { display:grid; grid-template-columns:repeat(12, 1fr); gap:4px; }
+  .viz .chunks i { height:20px; background:#12191a; border:1px solid var(--line); transition:background .3s, border-color .3s; }
+  .viz .chunks i.hit { background:rgba(103,232,249,.25); border-color:var(--cyan); }
+  .viz .chunks i.top { background:var(--amber); border-color:var(--amber); }
+  .viz .legend { display:flex; gap:16px; color:var(--muted); font-size:11.5px; flex-wrap:wrap; }
+  .viz .legend span::before { content:""; display:inline-block; width:9px; height:9px; margin-right:6px; vertical-align:-1px; background:var(--c); }
+  .layers { display:grid; gap:7px; }
+  .layer { display:grid; grid-template-columns:150px minmax(0,1fr) 48px; gap:10px; align-items:center; color:var(--muted); font-size:12px; }
+  .layer .bar { height:8px; background:#12191a; border:1px solid var(--line); position:relative; overflow:hidden; }
+  .layer .bar i { position:absolute; inset:0 auto 0 0; width:0; background:var(--green); transition:width .5s ease; }
+  .layer.flag .bar i { background:var(--red); }
+  .layer .v { text-align:right; color:var(--head); }
+  .verdict { margin-top:6px; padding:8px 10px; border:1px dashed var(--line2); color:var(--amber); font-size:12.5px; }
+
+  .brief { padding:20px 22px 22px; min-width:0; display:flex; flex-direction:column; }
+  .brief .id { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; }
+  .brief h3 { font:700 34px/.95 var(--disp); text-transform:uppercase; margin:10px 0 8px; color:var(--head); letter-spacing:.005em; }
+  .brief .what { color:var(--ink); margin:0 0 16px; font-size:15px; }
+  .read { display:grid; border:1px solid var(--line); }
+  .read div { display:grid; grid-template-columns:118px minmax(0,1fr); gap:12px; padding:10px 12px; border-bottom:1px solid var(--line); font-size:14px; line-height:1.5; }
+  .read div:last-child { border-bottom:0; }
+  .read b { font:600 10.5px/1.6 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--amber); padding-top:2px; }
+  .impact { display:flex; align-items:baseline; gap:12px; margin:16px 0 4px; flex-wrap:wrap; }
+  .impact b { font:800 46px/1 var(--disp); color:var(--green); }
+  .impact span { font:12px var(--mono); color:var(--muted); }
+  .decide { font-size:14px; margin:8px 0 0; padding-left:12px; border-left:2px solid var(--cyan); color:var(--ink); }
+  .decide b { font:600 10.5px var(--mono); letter-spacing:.14em; color:var(--cyan); display:block; margin-bottom:2px; }
+  .stack { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
+  .stack span { font:11.5px var(--mono); color:var(--ink); border:1px solid var(--line2); padding:3px 8px; }
+  .brief .go { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:18px; }
+  .brief .go .act { padding:10px 13px; font-size:11.5px; }
+
+  .archive { width:100%; border-collapse:collapse; font-size:14px; }
+  .archive th { text-align:left; font:600 10.5px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); padding:10px 14px; border-bottom:1px solid var(--line); }
+  .archive td { padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .archive tr:last-child td { border-bottom:0; }
+  .archive td:first-child { font:12px var(--mono); color:var(--dim); white-space:nowrap; }
+  .archive td b { color:var(--head); font-weight:600; }
+  .archive a { color:var(--cyan); text-decoration:none; font:12px var(--mono); white-space:nowrap; }
+  .archive a:hover { text-decoration:underline; }
+  .scrollx { overflow-x:auto; }
+
+  .minis { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; }
+  .mini { padding:16px 18px 18px; min-width:0; }
+  .mini .id { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; }
+  .mini .id a { font:12px var(--mono); color:var(--cyan); text-decoration:none; }
+  .mini .id a:hover { text-decoration:underline; }
+  .mini h4 { font:700 24px/1 var(--disp); text-transform:uppercase; color:var(--head); margin:10px 0 12px; }
+  .mini .read div { grid-template-columns:104px minmax(0,1fr); font-size:13.5px; }
+  @media (max-width:760px) { .minis { grid-template-columns:1fr; } .mini .read div { grid-template-columns:1fr; gap:2px; } }
+  .story { font-size:15px; line-height:1.65; color:var(--ink); margin:0; }
+  .mini .story { font-size:14px; }
+  .xtags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+  .xtags span { font:11.5px var(--mono); color:var(--ink); border:1px solid var(--line2); padding:3px 8px; }
+  .xlinks { display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; }
+  .xlinks a { font:600 12px var(--mono); color:var(--cyan); text-decoration:none; letter-spacing:.04em; }
+  .xlinks a:hover { color:var(--amber); }
+  .mini { scroll-margin-top:70px; }
+  /* flight log */
+  .log { border-left:1px solid var(--line2); margin-left:8px; }
+  .entry { position:relative; padding:0 0 30px 28px; }
+  .entry::before { content:""; position:absolute; left:-5px; top:6px; width:9px; height:9px; background:var(--bg); border:1px solid var(--amber); transform:rotate(45deg); }
+  .entry.now::before { background:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.7); }
+  .entry .t { font:600 12px var(--mono); color:var(--amber); letter-spacing:.08em; }
+  .entry h3 { font:700 28px/1 var(--disp); text-transform:uppercase; color:var(--head); margin:6px 0 4px; }
+  .entry h3 span { color:var(--muted); font-weight:600; }
+  .entry p { margin:6px 0 0; max-width:760px; }
+  .entry ul { margin:8px 0 0; padding-left:18px; max-width:760px; }
+  .entry li::marker { color:var(--amber); content:"▸  "; }
+
+  /* certs */
+  .certs { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
+  .cert { display:block; padding:16px; text-decoration:none; transition:border-color .2s; }
+  .cert:hover { border-color:var(--amber); }
+  .cert .lbl { display:block; margin-bottom:8px; }
+  .cert b { font:700 22px/1.05 var(--disp); text-transform:uppercase; color:var(--head); display:block; }
+  .cert span { font:12px var(--mono); color:var(--cyan); }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .chips a { font:12px var(--mono); text-decoration:none; color:var(--ink); border:1px solid var(--line2); padding:5px 10px; }
+  .chips a:hover { border-color:var(--cyan); color:var(--cyan); }
+  .edu { margin-top:22px; font:13px var(--mono); color:var(--muted); }
+  .edu b { color:var(--head); font-weight:500; }
+
+  /* contact */
+  .channel { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:center; padding:30px; margin:20px 0 60px; }
+  .channel h2 { font:800 clamp(40px, 6vw, 80px)/.9 var(--disp); text-transform:uppercase; margin:8px 0 10px; color:var(--head); }
+  .channel p { margin:0; color:var(--muted); max-width:560px; }
+  footer { border-top:1px solid var(--line); padding:20px 0 90px; font:12px var(--mono); color:var(--dim); position:relative; z-index:1; }
+  footer .wrap { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+
+  /* modal */
+  .modal { position:fixed; inset:0; z-index:60; background:rgba(2,3,3,.86); backdrop-filter:blur(4px); overflow-y:auto; padding:5vh 16px; }
+  .sheet { max-width:880px; margin:0 auto; animation:up .3s ease; }
+  @keyframes up { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:none } }
+  .sheet .pnl-h button { font:600 12px var(--mono); background:none; border:1px solid var(--line2); color:var(--ink); padding:6px 10px; cursor:pointer; }
+  .sheet .pnl-h button:hover { border-color:var(--amber); color:var(--amber); }
+  .sheet-b { padding:22px 24px 26px; }
+  .sheet-b h3 { font:800 44px/.95 var(--disp); text-transform:uppercase; margin:6px 0 10px; color:var(--head); }
+  .trace { margin-top:20px; border:1px solid var(--line); }
+  .span { display:grid; grid-template-columns:44px minmax(0,1fr); border-bottom:1px solid var(--line); }
+  .span:last-child { border-bottom:0; }
+  .span .n { font:600 12px var(--mono); color:var(--amber); padding:14px 0; text-align:center; border-right:1px solid var(--line); }
+  .span .c { padding:12px 16px; min-width:0; }
+  .span .c b { font:600 13px var(--mono); color:var(--head); letter-spacing:.02em; }
+  .span .c p { margin:4px 0 0; font-size:14.5px; }
+  .span .c code { display:inline-block; margin-top:8px; font:12px var(--mono); color:var(--cyan); background:#050707; border:1px solid var(--line); padding:4px 8px; max-width:100%; overflow-x:auto; }
+  .span.res .n { color:var(--green); }
+
+  /* ops agent chat */
+  .dock { position:fixed; right:max(18px, env(safe-area-inset-right)); bottom:max(18px, env(safe-area-inset-bottom)); z-index:50; }
+  .dock-btn { font:600 12px var(--mono); letter-spacing:.12em; text-transform:uppercase; background:var(--amber); color:#120c02; border:0; padding:13px 16px; cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,.5); display:flex; gap:10px; align-items:center; }
+  .dock-btn .led { background:#120c02; box-shadow:none; }
+  .chatw { position:absolute; right:0; bottom:56px; width:min(380px, calc(100vw - 36px)); display:flex; flex-direction:column; max-height:min(560px, 72vh); box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  .chatw .log2 { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:#060809; }
+  .m { max-width:88%; font-size:14px; line-height:1.5; padding:9px 12px; border:1px solid var(--line); }
+  .m.a { background:var(--panel); align-self:flex-start; }
+  .m.a::before { content:"OPS_AGENT"; display:block; font:600 10px var(--mono); letter-spacing:.14em; color:var(--amber); margin-bottom:3px; }
+  .m.u { background:#102a30; border-color:#1d4a53; align-self:flex-end; color:#e6fbff; }
+  .m .lnk { display:inline-block; margin-top:8px; font:600 11.5px var(--mono); color:var(--cyan); background:none; border:1px solid #1d4a53; padding:4px 8px; cursor:pointer; text-decoration:none; }
+  .sugg { display:flex; flex-wrap:wrap; gap:6px; padding:10px 14px; border-top:1px solid var(--line); background:var(--bg2); }
+  .sugg button { font:11.5px var(--mono); background:none; border:1px solid var(--line2); color:var(--ink); padding:5px 9px; cursor:pointer; }
+  .sugg button:hover { border-color:var(--amber); color:var(--amber); }
+  .chatw form { display:flex; border-top:1px solid var(--line); }
+  .chatw input { flex:1; min-width:0; background:#050707; border:0; color:var(--head); font:13.5px var(--mono); padding:12px 14px; outline:none; }
+  .chatw form button { background:var(--bg2); border:0; border-left:1px solid var(--line); color:var(--amber); font:600 12px var(--mono); padding:0 14px; cursor:pointer; }
+
+  @media (max-width:960px) {
+    .hero { grid-template-columns:1fr; padding-top:30px; }
+    .mission { grid-template-columns:1fr; }
+    .mission .mon { border-right:0; border-bottom:1px solid var(--line); }
+    .screen { min-height:240px; }
+    .certs { grid-template-columns:1fr; }
+    .channel { grid-template-columns:1fr; }
+    .clock .tz, .clock .city { display:none; }
   }
+  @media (max-width:600px) {
+    .tabs { display:none; }
+    .read div { grid-template-columns:1fr; gap:2px; }
+    .layer { grid-template-columns:110px minmax(0,1fr) 40px; }
+    .brief h3 { font-size:30px; }
+    .sheet-b { padding:18px; } .sheet-b h3 { font-size:34px; }
+    .dock-btn .txt { display:none; }
+    .bot, .bot svg { width:44px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } .boot { display:none; } }
 </style>
 </head>
 <body>
-<nav><div class="wrap">
-  <a class="name" href="#top">Rushmitha <span>Parvathaneni</span></a>
-  <a href="#about">About</a>
-  <a href="#experience">Experience</a>
-  <a href="#work">Work</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
-</div></nav>
 
-<div class="hero" id="top"><div class="wrap">
-<header>
-  <p class="eyebrow">AI Engineer · Data Scientist · San Francisco Bay Area</p>
-  <h1>I build <span class="hl">conversational AI and agents</span> that people actually use.</h1>
-  <p class="lead">I have 5+ years of Python, LLM and data work. Today I build Google ADK agents on GCP that answer 3,000+ conversations a month, and I'm building my team's first Dialogflow CX flow.</p>
-  <div class="links">
-    <a class="btn solid" href="mailto:rushmita1310@gmail.com">Email me</a>
-    <a class="btn" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">GitHub</a>
-    <a class="btn" href="Rushmitha_Parvathaneni_Resume.pdf" target="_blank">Resume (PDF)</a>
-  </div>
-  <div class="stats">
-    <div class="stat c-indigo"><b>3,000+</b><span>conversations a month</span></div>
-    <div class="stat c-teal"><b>92%</b><span>retrieval hit rate</span></div>
-    <div class="stat c-amber"><b>48h → 12h</b><span>time to book a repair</span></div>
-    <div class="stat c-rose"><b>15 min</b><span>from commit to production</span></div>
+<div class="boot" id="boot" aria-hidden="true"><pre id="bootLog"></pre><small>CLICK OR PRESS ANY KEY TO SKIP</small></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#overview">RP<span>/</span>OPS</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#overview">Overview</a><a href="#missions">Missions</a><a href="#flightlog">Flight log</a><a href="#certs">Certs</a><a href="#channel">Contact</a>
+    </nav>
+    <div class="clock"><span class="tz city">UPTIME</span><span>5Y+</span><span><span class="led blink"></span>&nbsp; OPEN TO ROLES</span></div>
   </div>
 </header>
-</div></div>
 
-<div class="wrap">
-<section id="about" class="about">
-  <h2>About</h2>
-  <p>I started in data analysis, moved into data science on AWS pipelines for FedEx, and now spend most of my time on LLM agents and retrieval on Google Cloud.</p>
-  <p>What I like most is the part after the demo. That means building the test set, finding out why an agent sent a message to the wrong place, and fixing it so the next release is measurably better. I care about the boring things too, like input checks, masking personal data, a person approving before anything costs money, and dashboards that show when quality slips.</p>
-  <p>I have a master's in Data Analytics Engineering from Northeastern University, and I'm certified as an AWS Data Engineer and as a Microsoft Azure AI Engineer.</p>
-</section>
+<main>
+  <div class="wrap" id="overview">
+    <div class="hero">
+      <div class="op">
+        <div class="idrow">
+          <figure class="idpic" id="idpic" hidden><img src="photo.jpg" alt="Rushmitha Parvathaneni" onload="this.parentNode.hidden=false" onerror="this.parentNode.remove()"></figure>
+          <span class="lbl">Operator · <b>on duty</b><br><span style="color:var(--dim)">ID · RP-AI-01</span></span>
+        </div>
+        <h1>Rushmitha<br><span class="sur">Parvathaneni</span></h1>
+        <p class="role">AI ENGINEER · AGENTS · RETRIEVAL · DATA</p>
+        <p class="bio">I build AI agents that do real work, then I stay with them in production. I test them, watch them, and fix what breaks. Right now that's <em>Google ADK agents on GCP</em> handling 3,000+ conversations a month.</p>
+        <div class="acts">
+          <button class="act pri" type="button" id="askBtn">Ask my agent <span class="k">▸</span></button>
+          <a class="act" href="#missions">View missions</a>
+          <a class="act" href="mailto:rushmita1310@gmail.com">Email</a>
+          <a class="act" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="roam-hint">psst · my agents are loose on this page. <b>Drag one around</b>, or <b>click it</b> to see what it does.</p>
+      </div>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <div class="timeline">
-  <div class="role c-indigo">
-    <div class="role-head"><h3>Data Scientist (AI &amp; ML), <span class="org">Sunovee</span></h3><span class="meta">Sep 2024 to present · USA</span></div>
-    <ul>
-      <li>Build Google ADK agents and document retrieval on GCP for an AI property management assistant handling 3,000+ conversations a month.</li>
-      <li>Also built applicant screening, pay stub fraud checks and a lease renewal model. Details are in Selected work below.</li>
-      <li>Building the team's first Dialogflow CX flow for maintenance intake.</li>
-    </ul>
+      <div class="pnl sys" aria-label="System status">
+        <div class="pnl-h"><span class="lbl">System status</span><span class="lbl"><span class="led"></span>&nbsp; nominal</span></div>
+        <div class="rows">
+          <div class="r"><span class="led"></span><span class="n">repair_agent</span><span class="s">ONLINE</span></div>
+          <div class="r"><span class="led"></span><span class="n">document_retrieval</span><span class="s">ONLINE</span></div>
+          <div class="r"><span class="led"></span><span class="n">applicant_screening</span><span class="s">ONLINE</span></div>
+          <div class="r"><span class="led amber"></span><span class="n">renewal_model</span><span class="s am">WEEKLY</span></div>
+          <div class="r"><span class="led cyan"></span><span class="n">job_scanner</span><span class="s cy">DAILY</span></div>
+          <div class="r"><span class="led amber blink"></span><span class="n">dialogflow_cx · intake flow</span><span class="s am">BUILDING</span></div>
+        </div>
+        <div class="tele">
+          <div><b>3,000+</b><span>conversations a month</span><i style="--w:0" data-w="88%"></i></div>
+          <div><b>92%</b><span>retrieval hit rate · 412 labeled questions</span><i style="--w:0" data-w="92%"></i></div>
+          <div><b>12h</b><span>to book a repair, down from 48h</span><i style="--w:0" data-w="75%"></i></div>
+          <div><b>552</b><span>career boards scanned daily</span><i style="--w:0" data-w="100%"></i></div>
+        </div>
+        <div class="note">// production runs on Google ADK. The router agent is our founder's. The repair agent and its tools are mine.</div>
+      </div>
+    </div>
   </div>
-  <div class="role c-teal">
-    <div class="role-head"><h3>Graduate Analytics Project, <span class="org">Wollaston's Campus Store</span></h3><span class="meta">Aug 2023 to Apr 2024 · Boston, MA</span></div>
-    <ul>
-      <li>Designed an Oracle database and FastAPI service for 1,200+ products and 300+ daily orders, with automatic reorder alerts.</li>
-    </ul>
-  </div>
-  <div class="role c-amber">
-    <div class="role-head"><h3>Data Scientist, <span class="org">Mphasis (client FedEx)</span></h3><span class="meta">Aug 2021 to Jul 2022 · India</span></div>
-    <ul>
-      <li>Built AWS pipelines and a delay model for delivery data, cutting manual processing by 70% and last-mile fuel costs by 20%.</li>
-    </ul>
-  </div>
-  <div class="role c-rose">
-    <div class="role-head"><h3>Data Analyst, <span class="org">Glamate</span></h3><span class="meta">May 2020 to Aug 2021 · India</span></div>
-    <ul>
-      <li>Built a skincare and haircare recommendation chatbot backed by review-mined product scores, raising recommendation accuracy by 20%.</li>
-    </ul>
-  </div>
-  </div>
-</section>
 
-<section id="work">
-  <h2>Selected work</h2>
-  <div class="cards">
-    <div class="card c-indigo">
-      <div class="where">Sunovee</div>
-      <h3>Repair assistant</h3>
-      <p>A resident describes a problem in chat. The agent asks only for what's missing, creates the work order, estimates the cost from past invoices for that issue and area, and books a vendor once the manager approves. Booking time dropped from about 48 hours to about 12.</p>
-      <div class="tags"><span class="tag">Google ADK</span><span class="tag">Gemini 2.5</span><span class="tag">Cloud Run</span><span class="tag">FastAPI</span></div>
-    </div>
-    <div class="card c-teal">
-      <div class="where">Sunovee</div>
-      <h3>Document retrieval for an AI assistant</h3>
-      <p>Leases, policies and manuals are parsed, split into parent and child chunks, and searched with both vectors and keywords, filtered by property. Answers below a relevance cutoff are not given, which cut unsupported answers by 40%.</p>
-      <div class="tags"><span class="tag">DocLing</span><span class="tag">LlamaIndex</span><span class="tag">Qdrant</span><span class="tag">OpenAI embeddings</span></div>
-    </div>
-    <div class="card c-sky">
-      <div class="where">Sunovee</div>
-      <h3>Applicant screening and pay stub fraud checks</h3>
-      <p>Pulls applicants from Buildium, verifies landlords and income, and scores each application with clear rules so a manager makes the final call. Uploaded pay stubs go through rule-based forensic checks plus a Gemini vision check.</p>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">PostgreSQL</span><span class="tag">Gemini Vision</span></div>
-    </div>
-    <div class="card c-rose">
-      <div class="where">Sunovee</div>
-      <h3>Lease renewal model</h3>
-      <p>A BigQuery ML model built on payment, maintenance and conversation history. It ranks the leases least likely to renew about 90 days ahead, so managers can reach out early. Slow repairs and large rent increases were the top drivers.</p>
-      <div class="tags"><span class="tag">BigQuery ML</span><span class="tag">SQL</span><span class="tag">Boosted trees</span></div>
-    </div>
-    <div class="card c-amber">
-      <div class="where">FedEx via Mphasis</div>
-      <h3>Delivery delay analytics</h3>
-      <p>A daily pipeline over package scans, routes and driver records, with a delay model that showed which counties ran late and where more drivers were needed.</p>
-      <div class="tags"><span class="tag">AWS Glue</span><span class="tag">PySpark</span><span class="tag">Redshift</span><span class="tag">Scikit-Learn</span></div>
-    </div>
-    <div class="card c-teal">
-      <div class="where">Northeastern</div>
-      <h3>Heart disease risk prediction</h3>
-      <p>Compared logistic regression, random forest and gradient boosting on clinical data, tuned for recall so fewer high-risk patients are missed.</p>
-      <div class="tags"><span class="tag">Scikit-Learn</span><span class="tag">Pandas</span><span class="tag">Classification</span></div>
-    </div>
-  </div>
-</section>
+  <div class="botlayer" id="botlayer" aria-label="My agents wandering the page. Drag one around, or click it to open its mission."></div>
 
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="skills">
-    <div class="skill c-indigo"><b>Cloud</b><div>GCP (Cloud Run, Cloud Storage, BigQuery, Artifact Registry, Dialogflow CX), AWS (S3, Glue, Lambda, Redshift), Azure</div></div>
-    <div class="skill c-teal"><b>Conversational AI</b><div>Dialogflow CX, Google ADK, Gemini 2.5, OpenAI GPT-4o, RAG, LlamaIndex, Qdrant, Vapi</div></div>
-    <div class="skill c-sky"><b>Languages &amp; data</b><div>Python, SQL, PostgreSQL, MySQL, SQL Server, MongoDB, PySpark</div></div>
-    <div class="skill c-amber"><b>Machine learning</b><div>Scikit-Learn, PyTorch, TensorFlow, Hugging Face, BigQuery ML</div></div>
-    <div class="skill c-rose"><b>Engineering</b><div>FastAPI, REST APIs, webhooks, Docker, Jenkins, CI/CD, pytest, Git</div></div>
-    <div class="skill c-indigo"><b>Quality &amp; monitoring</b><div>Phoenix, RAGAS, Evidently AI, Prometheus, Grafana, Tableau, Power BI</div></div>
+  <div class="ticker" aria-label="Event feed, replay of typical events">
+    <span class="tag">FEED · REPLAY</span>
+    <div class="lane" id="lane"></div>
   </div>
-</section>
 
-<section id="credentials">
-  <div class="two">
-    <div>
-      <h2>Certifications</h2>
-      <ul class="list-plain">
-        <li><a class="cert" href="https://www.credly.com/badges/f1d97d89-9f32-4b27-87a9-08169c4a0ab3/public_url" target="_blank" rel="noopener">AWS Certified Data Engineer <span aria-hidden="true">↗</span></a><br><span class="meta">Amazon Web Services</span></li>
-        <li><a class="cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/AE54688DCF379DF4?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener">Azure AI Engineer (AI-102) <span aria-hidden="true">↗</span></a><br><span class="meta">Microsoft Certified</span></li>
-        <li><a class="cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/96284AAAA3148725?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener">Azure AI Apps and Agents Developer (AI-103) <span aria-hidden="true">↗</span></a><br><span class="meta">Microsoft Certified</span></li>
-        <li class="c-rose"><b>Databricks</b><div class="chips"><a class="chip" href="https://credentials.databricks.com/1f02cb05-6e3f-49b8-8de0-345850ccb0b6" target="_blank" rel="noopener">Generative AI Evaluation and Governance</a><a class="chip" href="https://credentials.databricks.com/ff11c708-9758-444f-8684-59facf1e01a5" target="_blank" rel="noopener">Application Deployment and Monitoring</a><a class="chip" href="https://credentials.databricks.com/100e3eed-b9f3-45ca-a6bc-836ffe20416a" target="_blank" rel="noopener">Single-Agent Applications</a><a class="chip" href="https://credentials.databricks.com/7989d309-5082-4a21-a313-3f5175839d7f" target="_blank" rel="noopener">Building Retrieval Agents</a><a class="chip" href="https://credentials.databricks.com/449c114b-8d9a-429b-bb05-cbef799e23f1" target="_blank" rel="noopener">AI Agent</a><a class="chip" href="https://credentials.databricks.com/db3f1405-4bc4-4485-a3ad-5d92f36e8cfd" target="_blank" rel="noopener">AI Fundamentals</a></div></li>
-        <li class="c-amber"><b>Anthropic</b><div class="chips"><a class="chip" href="https://verify.skilljar.com/c/h9wd5uxnvn6z" target="_blank" rel="noopener">Claude in Amazon Bedrock</a><a class="chip" href="https://verify.skilljar.com/c/bi22wjkcw2jz" target="_blank" rel="noopener">AI Fluency Framework and Foundations</a><a class="chip" href="https://verify.skilljar.com/c/nforcikwsyzy" target="_blank" rel="noopener">Claude 101</a></div></li>
-        <li class="c-sky"><b>Coursera</b><div class="chips"><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/FPVDM5VKFKQM" target="_blank" rel="noopener">SQL for Data Science, UC Davis</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/XMTDQRJ8G6PR" target="_blank" rel="noopener">Data Analytics for Business, University of Colorado</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/7YZ7NQGJW5DG" target="_blank" rel="noopener">Python Data Structures, University of Michigan</a><a class="chip" href="https://www.coursera.org/account/accomplishments/verify/Z9T7AAY8GPXN" target="_blank" rel="noopener">Programming for Everybody, University of Michigan</a></div></li>
-      </ul>
-    </div>
-    <div>
-      <h2>Education</h2>
-      <ul class="list-plain">
-        <li><b>MS, Data Analytics Engineering</b><br><span class="meta">Northeastern University, Boston · 2024</span></li>
-        <li><b>B.Tech, Electrical and Electronics Engineering</b><br><span class="meta">Manipal Institute of Technology · 2021</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+  <section id="missions">
+    <div class="wrap">
+      <div class="sec-h">
+        <div><span class="lbl">Section 02 · <b>Mission board</b></span><h2>Missions</h2></div>
+        <p>Real systems I've built and run. The monitors show recordings and replays of them at work.</p>
+      </div>
+      <div id="missionList"></div>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-box">
-    <p style="font-size:19px; font-weight:600; margin-bottom:8px">Hiring for AI engineering or data science? I'd like to hear about it.</p>
-    <p class="meta" style="margin-bottom:18px">The fastest way to reach me is by email.</p>
-    <div class="links">
-      <a class="btn solid" href="mailto:rushmita1310@gmail.com">rushmita1310@gmail.com</a>
-      <a class="btn" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">github.com/Rushmitha-dot</a>
+      <div class="sec-h" style="margin-top:46px"><div><span class="lbl">Mission archive · <b>more projects</b></span></div><p>Earlier work, personal tools and public notebooks.</p></div>
+      <div class="minis" id="archive"></div>
+    </div>
+  </section>
+
+  <section id="flightlog">
+    <div class="wrap">
+      <div class="sec-h">
+        <div><span class="lbl">Section 03 · <b>Flight log</b></span><h2>Experience</h2></div>
+        <p>Five-plus years, from analyst to the engineer who builds and runs the agents.</p>
+      </div>
+      <div class="log">
+        <div class="entry now">
+          <div class="t">2024.09 → NOW</div>
+          <h3>Data Scientist (AI &amp; ML) <span>· Sunovee</span></h3>
+          <p>On Sunovee's AI platform for property management, I build the agents that handle resident conversations across about 150 properties, more than 3,000 a month.</p>
+          <ul>
+            <li>Built the repair assistant, which cut the time to book a repair from about 48 hours to 12.</li>
+            <li>Built document answers for residents with a 92% hit rate, so staff stopped answering the same lease questions by hand.</li>
+            <li>Built applicant screening that flags edited pay stubs and scores every application the same way.</li>
+            <li>Built a lease renewal model that gives managers a ranked list of at-risk leases about 90 days ahead.</li>
+            <li>Set up the testing and monitoring that keep it all reliable, and I'm building the team's first Dialogflow CX flow.</li>
+          </ul>
+          <div class="xtags"><span>Google ADK</span><span>Gemini</span><span>Cloud Run</span><span>BigQuery</span><span>Python</span></div>
+          <div class="xlinks"><a href="#M-01">▸ Repair assistant</a><a href="#M-02">▸ Document retrieval</a><a href="#M-03">▸ Screening</a><a href="#M-05">▸ Lease renewal</a></div>
+        </div>
+        <div class="entry">
+          <div class="t">2023.08 → 2024.04</div>
+          <h3>Graduate Analytics Project <span>· Wollaston's, Northeastern</span></h3>
+          <p>The campus store ran on weekly manual stock counts, so items ran out or sat unsold. I built the database and ordering system behind 300+ daily orders across 1,200+ products, with automatic reorder alerts and dashboards for the managers.</p>
+          <div class="xtags"><span>Oracle SQL</span><span>PL/SQL</span><span>FastAPI</span><span>React</span></div>
+          <div class="xlinks"><a href="#M-08">▸ Campus store system</a></div>
+        </div>
+        <div class="entry">
+          <div class="t">2021.08 → 2022.07</div>
+          <h3>Data Scientist <span>· Mphasis, client FedEx</span></h3>
+          <p>Deliveries were getting later and costlier, and nobody could say where or why. I built the data pipelines and the delay model that showed operations managers which counties ran late, which guided route changes and driver hiring.</p>
+          <ul>
+            <li>20% lower last-mile fuel cost, 70% less manual data work, and 98% of data issues caught early.</li>
+            <li>Led bi-weekly sprints and presented the findings to senior stakeholders.</li>
+          </ul>
+          <div class="xtags"><span>AWS</span><span>PySpark</span><span>Redshift</span><span>Scikit-Learn</span><span>QuickSight</span></div>
+          <div class="xlinks"><a href="#M-06">▸ Delivery delay analytics</a></div>
+        </div>
+        <div class="entry">
+          <div class="t">2020.05 → 2021.08</div>
+          <h3>Data Analyst <span>· Glamate</span></h3>
+          <p>Glamate earned through affiliate marketing, so better recommendations meant more commission. I built the chatbot that matched shoppers to the right skincare and haircare products, which improved recommendation accuracy by 20%.</p>
+          <ul>
+            <li>My Tableau dashboards brought in 10 new affiliate partners.</li>
+            <li>My analysis of social posts helped grow the audience to 50,000+ followers.</li>
+          </ul>
+          <div class="xtags"><span>Python</span><span>NLTK</span><span>Hugging Face</span><span>Tableau</span></div>
+          <div class="xlinks"><a href="#M-07">▸ Product recommender</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="wrap">
+      <div class="sec-h">
+        <div><span class="lbl">Section 04 · <b>On file</b></span><h2>Certifications</h2></div>
+        <p>Every certificate links to its public verification page.</p>
+      </div>
+      <div class="certs">
+        <a class="pnl cert" href="https://www.credly.com/badges/f1d97d89-9f32-4b27-87a9-08169c4a0ab3/public_url" target="_blank" rel="noopener"><span class="lbl">Amazon Web Services</span><b>AWS Certified Data Engineer</b><span>verify ↗</span></a>
+        <a class="pnl cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/AE54688DCF379DF4?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener"><span class="lbl">Microsoft · AI-102</span><b>Azure AI Engineer</b><span>verify ↗</span></a>
+        <a class="pnl cert" href="https://learn.microsoft.com/api/credentials/share/en-us/RushmithaParvathaneni-5128/96284AAAA3148725?sharingId=CCC81E2CD0C4515E" target="_blank" rel="noopener"><span class="lbl">Microsoft · AI-103</span><b>Azure AI Apps &amp; Agents Developer</b><span>verify ↗</span></a>
+      </div>
+      <div class="chips">
+        <a href="https://credentials.databricks.com/1f02cb05-6e3f-49b8-8de0-345850ccb0b6" target="_blank" rel="noopener">Databricks · GenAI Evaluation &amp; Governance</a>
+        <a href="https://credentials.databricks.com/ff11c708-9758-444f-8684-59facf1e01a5" target="_blank" rel="noopener">Databricks · Deployment &amp; Monitoring</a>
+        <a href="https://credentials.databricks.com/100e3eed-b9f3-45ca-a6bc-836ffe20416a" target="_blank" rel="noopener">Databricks · Single-Agent Applications</a>
+        <a href="https://credentials.databricks.com/7989d309-5082-4a21-a313-3f5175839d7f" target="_blank" rel="noopener">Databricks · Building Retrieval Agents</a>
+        <a href="https://credentials.databricks.com/449c114b-8d9a-429b-bb05-cbef799e23f1" target="_blank" rel="noopener">Databricks · AI Agent</a>
+        <a href="https://credentials.databricks.com/db3f1405-4bc4-4485-a3ad-5d92f36e8cfd" target="_blank" rel="noopener">Databricks · AI Fundamentals</a>
+        <a href="https://verify.skilljar.com/c/h9wd5uxnvn6z" target="_blank" rel="noopener">Anthropic · Claude in Amazon Bedrock</a>
+        <a href="https://verify.skilljar.com/c/bi22wjkcw2jz" target="_blank" rel="noopener">Anthropic · AI Fluency</a>
+        <a href="https://verify.skilljar.com/c/nforcikwsyzy" target="_blank" rel="noopener">Anthropic · Claude 101</a>
+        <a href="https://www.coursera.org/account/accomplishments/verify/FPVDM5VKFKQM" target="_blank" rel="noopener">Coursera · SQL for Data Science</a>
+        <a href="https://www.coursera.org/account/accomplishments/verify/XMTDQRJ8G6PR" target="_blank" rel="noopener">Coursera · Data Analytics for Business</a>
+        <a href="https://www.coursera.org/account/accomplishments/verify/7YZ7NQGJW5DG" target="_blank" rel="noopener">Coursera · Python Data Structures</a>
+        <a href="https://www.coursera.org/account/accomplishments/verify/Z9T7AAY8GPXN" target="_blank" rel="noopener">Coursera · Programming for Everybody</a>
+      </div>
+      <p class="edu"><b>MS Data Analytics Engineering</b> · Northeastern University · 2024 &nbsp;|&nbsp; <b>B.Tech</b> · Manipal Institute of Technology · 2021</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="pnl channel" id="channel">
+      <div><span class="lbl">Section 05 · <b>Open a channel</b></span><h2>Let's talk</h2><p>I'm open to AI engineering and data science roles. Hiring, or want to talk agents and evaluation? Email me and I'll reply within a day.</p></div>
+      <div class="acts"><a class="act pri" href="mailto:rushmita1310@gmail.com">rushmita1310@gmail.com</a><a class="act" href="https://github.com/Rushmitha-dot" target="_blank" rel="noopener">GitHub ↗</a></div>
     </div>
   </div>
-</section>
+</main>
+
+<footer><div class="wrap"><span>RP/OPS · built by hand, no template · © 2026 Rushmitha Parvathaneni</span><span>Demo data is simulated. The steps, numbers and code are real.</span></div></footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="sheet pnl" id="sheet"></div></div>
+
+<div class="dock">
+  <div class="pnl chatw" id="chatw" hidden role="dialog" aria-label="Ask my agent">
+    <div class="pnl-h"><span class="lbl"><span class="led"></span>&nbsp; ops_agent · scripted</span><button type="button" id="chatClose" style="background:none;border:0;color:var(--muted);font:600 14px var(--mono);cursor:pointer" aria-label="Close">✕</button></div>
+    <div class="log2" id="chatLog" aria-live="polite"></div>
+    <div class="sugg" id="sugg"></div>
+    <form id="chatForm"><input id="chatIn" autocomplete="off" placeholder="Ask about projects, stack, Dialogflow…" aria-label="Your question"><button type="submit">SEND</button></form>
+  </div>
+  <button class="dock-btn" type="button" id="dockBtn"><span class="led"></span><span class="txt">Ask my agent</span><span>▸</span></button>
 </div>
 
-<footer><div class="wrap">© 2026 Rushmitha Parvathaneni</div></footer>
-
 <script>
-  // highlight the nav link for the section in view
-  const links = [...document.querySelectorAll('nav a[href^="#"]:not(.name)')];
-  const obs = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+(() => {
+  const $ = (q, el = document) => el.querySelector(q);
+  const $$ = (q, el = document) => [...el.querySelectorAll(q)];
+  const GH = "https://github.com/Rushmitha-dot/rush/tree/main/notebooks/";
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- boot sequence ---------- */
+  const boot = $('#boot'), bootLog = $('#bootLog');
+  let bootSeen = false; try { bootSeen = sessionStorage.getItem('rpBoot') === '1'; } catch (e) {}
+  const BOOT = [
+    ['c', '$ ops --console rushmitha'],
+    ['', 'initializing operator console ...'],
+    ['', 'waking up agents'],
+    ['ok', '  ✓ repair_agent          online'],
+    ['ok', '  ✓ document_retrieval    online'],
+    ['ok', '  ✓ applicant_screening   online'],
+    ['ok', '  ✓ job_scanner           552 boards'],
+    ['am', '  ~ dialogflow_cx         building'],
+    ['', 'operator: RUSHMITHA PARVATHANENI · AI ENGINEER'],
+    ['ok', 'all systems nominal.']
+  ];
+  function endBoot() { if (!boot.isConnected) return; boot.classList.add('out'); setTimeout(() => boot.remove(), 520); try { sessionStorage.setItem('rpBoot', '1'); } catch (e) {} startTele(); }
+  if (bootSeen || reduce) { boot.remove(); setTimeout(startTele, 200); }
+  else {
+    let i = 0;
+    const step = () => {
+      if (!boot.isConnected) return;
+      if (i < BOOT.length) { const [c, t] = BOOT[i++]; bootLog.innerHTML = bootLog.innerHTML.replace('<span class="caret"></span>', '') + `<span class="${c}">${t}</span>\n<span class="caret"></span>`; setTimeout(step, i < 3 ? 260 : 170); }
+      else setTimeout(endBoot, 650);
+    };
+    step();
+    boot.addEventListener('click', endBoot);
+    addEventListener('keydown', function k() { endBoot(); removeEventListener('keydown', k); });
+  }
+  function startTele() { $$('.tele i').forEach(i => requestAnimationFrame(() => i.style.setProperty('--w', i.dataset.w))); }
+
+
+  /* ---------- ticker (replay of typical events) ---------- */
+  const EVENTS = [
+    '<b>[repair_agent]</b> work order created · HVAC · <u>awaiting manager approval</u>',
+    '<b>[retrieval]</b> lease question · top 5 passages · relevance cutoff <em>passed</em>',
+    '<b>[job_scanner]</b> 552 boards polled · new matches saved to <u>output/11-13-26</u>',
+    '<b>[screening]</b> pay stub · forensic checks <em>clean</em> · score sent to manager',
+    '<b>[repair_agent]</b> estimate from 14 past invoices · <u>$327 – $406</u>',
+    '<b>[retrieval]</b> no passage above cutoff · answered <u>"I don\'t know"</u> instead of guessing',
+    '<b>[deploy]</b> jenkins · tests + RAGAS gate <em>passed</em> · cloud run · 15 min',
+    '<b>[renewal_model]</b> weekly scoring · ranked list ready for managers',
+    '<b>[repair_agent]</b> manager approved · vendor booked · <em>resident notified</em>'
+  ];
+  $('#lane').innerHTML = [...EVENTS, ...EVENTS].map(e => `<span>${e}</span>`).join('');
+
+  /* ---------- missions ---------- */
+  const MISSIONS = [
+    { id:'M-01', st:['ACTIVE','led'], t:'Repair assistant', where:'Sunovee · Google ADK on GCP',
+      what:'A chat agent that turns a resident\'s repair message into a work order, prices it from past invoices and books a vendor once the manager approves.',
+      story:'Booking a single repair used to take about two days of back-and-forth between residents, managers and vendors. Now residents just describe the problem in chat, the property manager approves with one click, and a vendor is booked within hours. For the property management companies using it, that means fewer staff hours per request, no more overpaying for repairs, and happier residents who renew.',
+      imp:['12h','to book a repair · was 48h'],
+      dec:'The model never does the math. Code computes the estimate from invoices, and a check blocks booking until a person approves.',
+      stack:['Google ADK','Gemini 2.5','FastAPI','Cloud Run','PostgreSQL'], mon:'video', live:'demo.html',
+      trace:[['receive_message','Resident writes in chat. The router hands it to the repair agent.'],['extract_fields','Gemini fills a fixed schema (issue, room, urgency, unit). Code validates every field.','{ "category": "HVAC", "urgency": "high" }'],['ask_missing','Only missing fields are asked, one short question.','missing: ["availability"]'],['estimate_cost','Past invoices for this job and area, P25 to P75 range. Computed in code.','parts + hours × rate + trip fee'],['before_tool: approval','Booking tool is blocked until the manager approves.'],['book_vendor','Vendor with a matching slot is booked and the resident is notified.']],
+      res:'48h → 12h to book a repair. Follow-ups per request went from 3 to under 1.' },
+    { id:'M-02', st:['ACTIVE','led'], t:'Document retrieval', where:'Sunovee · RAG for an AI assistant',
+      what:'Leases, policies and manuals are parsed, chunked and searched by meaning and by keyword, always filtered to the right property.',
+      story:'Residents kept asking about fees, pets and parking, and the answers were buried in each property\'s lease PDFs. Now they get an answer straight from their own lease, and leasing staff stop answering the same questions by hand. Fewer questions reach the team, and answers grounded in the actual lease head off costly disputes.',
+      imp:['92%','hit rate · 379 of 412 labeled questions'],
+      dec:'Vector and BM25 search merged with RRF, plus a relevance cutoff so it says "I don\'t know" instead of guessing. 40% fewer unsupported answers.',
+      stack:['DocLing','LlamaParse','LlamaIndex','Qdrant','OpenAI embeddings'], mon:'rag',
+      trace:[['parse','DocLing reads files, LlamaParse handles files over 5 MB. A hash registry skips duplicates.'],['chunk','Parent sections split into child chunks for matching.'],['search','text-embedding-3-small vectors and BM25 run in Qdrant with a property filter.','filter: property_id = 118'],['fuse','Reciprocal rank fusion merges both lists, top 5 kept.'],['guardrail','If half a section matches, the whole section is used. Below the cutoff, no answer.']],
+      res:'92% hit rate on 412 labeled questions. 40% fewer unsupported answers.' },
+    { id:'M-03', st:['ACTIVE','led'], t:'Applicant screening & fraud checks', where:'Sunovee · Python, Playwright, Gemini',
+      what:'Applicants sync from Buildium, past landlords are verified automatically, income is checked against rent, and every pay stub goes through layered fraud checks.',
+      story:'Screening a rental application meant chasing old landlords and checking pay stubs by eye, and edited pay stubs slipped through. Leasing teams now get every application scored the same way, with the reasons laid out, while the manager still makes the call. Catching fraud protects owners from months of unpaid rent, and faster screening fills empty units sooner.',
+      imp:['100-pt','score with reasons · manager decides'],
+      dec:'Clear rules make the score explainable, and the manager makes the final call. Only points are stored, not raw screening data.',
+      stack:['Python','Playwright','FastAPI','PostgreSQL','Gemini Vision'], mon:'fraud',
+      trace:[['sync','New applicants arrive from the Buildium API.'],['verify_landlords','Playwright sends verification requests and reads the replies on a schedule.'],['income','Pay is extracted and compared with rent after adjusting for debt.'],['fraud_layers','Document classifier, rule-based forensic checks, then a Gemini vision check.','risk: minimal · low · medium · high · critical'],['score','Rules add up to 100 points. The manager sees score and reasons.']],
+      res:'Every application is scored the same way, and the person deciding has the evidence in front of them.' },
+    { id:'M-04', st:['DAILY','led cyan'], t:'Daily job scanner', where:'Personal tool · Python',
+      what:'Calls the job systems of 552 companies directly, keeps fresh roles that match, flags citizenship-only postings and repairs its own broken links.',
+      story:'Good roles get hundreds of applicants within days, and checking hundreds of career sites by hand every morning isn\'t possible. I built this for my own job search, and it ships with a setup guide so any job seeker can point it at their own target roles.',
+      imp:['552','boards in about 2 minutes'],
+      dec:'Call each company\'s job API (Workday, Greenhouse, Lever, Oracle and more) instead of scraping pages. Faster, sturdier, no browser.',
+      stack:['Python','REST APIs','launchd','Email alerts'], mon:'term',
+      trace:[['heal','Probe boards that failed 3+ runs and fix their config.'],['scan','8 workers call 552 job APIs in parallel.'],['filter','Target titles only, US only, recent postings only. Citizenship-only roles flagged.'],['shortlist','New relevant roles saved to a dated folder.'],['notify','Eligible roles emailed and loaded into a local job portal.']],
+      res:'One run on 11-06 shortlisted 87 new relevant roles, 54 of them eligible.' }
+  ];
+  const ARCHIVE = [
+    { id:'M-05', t:'Lease renewal model', w:'Sunovee · BigQuery ML', story:'Managers used to find out a resident was leaving only when the notice arrived. Now property managers and owners get a ranked list about 90 days ahead, so they can reach out early and keep units occupied instead of paying for vacancy and re-leasing.' },
+    { id:'M-06', t:'Delivery delay analytics', w:'Mphasis · client FedEx', story:'Deliveries were getting later and costlier, and nobody could say where or why. I gave FedEx operations managers a clear view by county that guided route changes and driver hiring, cutting last-mile fuel cost by 20% and manual data work by 70%.' },
+    { id:'M-07', t:'Product recommender', w:'Glamate · Python, NLP', story:'Shoppers didn\'t know which skincare or haircare product suited their concern and skin type. The chatbot matched them to the right product, and every purchase through its recommendations earned an affiliate commission from partners like Amazon, EarnKaro, Myntra, Forest Essentials and The Ordinary. Recommendations got 20% more accurate, and my dashboards brought in 10 new partners.' },
+    { id:'M-08', t:'Campus store system', w:'Northeastern · Wollaston\'s', story:'The campus store tracked 1,200+ products with weekly manual counts, so items ran out or sat unsold. Cashiers and managers now have stock that updates with every order and alerts when it\'s time to reorder, which means fewer lost sales and less cash tied up on shelves.', gh:'006_wollastons' },
+    { id:'M-09', t:'Resume tailoring pipeline', w:'Personal tool · Python', story:'Tailoring a resume well for each job used to take me about an hour. This pipeline scores the fit, plans where each requirement belongs and builds the file, so my time goes into reviewing instead of formatting.' },
+    { id:'NB-008', t:'Medical LLM fine-tuning', w:'GitHub notebook', story:'General chat models give vague medical answers, and fully fine-tuning a big model is too costly for small teams. This notebook shows how a health information app on a small budget could get sharper answers with LoRA.', gh:'008_medical_llm_finetune' },
+    { id:'NB-019', t:'Natural language to SQL', w:'GitHub notebook', story:'Business users can\'t write SQL, so simple questions sit in an analyst\'s queue. This notebook turns plain-English questions into SQL and measures the results on the Spider benchmark.', gh:'019_nl_to_sql' },
+    { id:'NB-015', t:'Agent with long-term memory', w:'GitHub notebook', story:'Most chatbots forget you between sessions. This agent keeps short-term and long-term memory, so an assistant or support bot can remember the people it talks to.', gh:'015_long_term_memory_agent' },
+    { id:'NB-012', t:'Fraud model drift monitor', w:'GitHub notebook', story:'Fraud models quietly get worse as fraud patterns change. This monitor tests which drift alarms actually fire, the kind of check risk teams at banks and payment companies depend on.', gh:'012_fraud_drift_monitor' },
+    { id:'NB-007', t:'Course Q&A assistant', w:'GitHub notebook', story:'Students can\'t find answers in hundreds of course files. This assistant answers from the course material with sources, and measures both what it retrieves and how faithful its answers are.', gh:'007_course_qa_assistant' }
+  ];
+
+  const monHtml = m => {
+    if (m.mon === 'video') return `<div class="mon-h"><span>CAM 01 · repair_agent</span><span class="rec">REC · replay</span></div><div class="screen"><video src="media/repair-demo.mp4" poster="media/repair-demo-poster.jpg" muted loop playsinline preload="metadata" aria-label="Screen recording of the repair assistant handling three requests"></video></div>`;
+    if (m.mon === 'term') return `<div class="mon-h"><span>TTY · job_scanner</span><span class="rec">real log · 11-06</span></div><div class="screen"><div class="term" data-term></div></div>`;
+    if (m.mon === 'rag') return `<div class="mon-h"><span>VIZ · retrieval</span><span>live sim</span></div><div class="screen"><div class="viz" data-rag><div class="q">› "Can I keep a cat in unit 4B?"</div><div class="chunks">${'<i></i>'.repeat(48)}</div><div class="legend"><span style="--c:#12191a">chunk</span><span style="--c:rgba(103,232,249,.4)">vector or BM25 hit</span><span style="--c:#ffb547">top 5 after RRF</span></div><div data-rag-out style="color:var(--muted)">filtering to property 118 ...</div></div></div>`;
+    if (m.mon === 'fraud') return `<div class="mon-h"><span>VIZ · paystub_check</span><span>live sim</span></div><div class="screen"><div class="viz" data-fraud><div class="q">› paystub_march.pdf</div><div class="layers">${['document type','pdf metadata','font consistency','text vs image','pixel noise (ELA)','clone detection','AI vision check'].map(n => `<div class="layer"><span>${n}</span><div class="bar"><i></i></div><span class="v">…</span></div>`).join('')}</div><div class="verdict" data-verdict>running checks ...</div></div></div>`;
+  };
+  $('#missionList').innerHTML = MISSIONS.map((m, k) => `
+    <article class="pnl mission" id="${m.id}">
+      <div class="mon">${monHtml(m)}</div>
+      <div class="brief">
+        <div class="id"><span class="lbl"><b>${m.id}</b> · ${m.where}</span><span class="lbl"><span class="${m.st[1]}"></span>&nbsp; ${m.st[0]}</span></div>
+        <h3>${m.t}</h3>
+        <p class="what">${m.what}</p>
+        <p class="story">${m.story}</p>
+        <div class="impact"><b>${m.imp[0]}</b><span>${m.imp[1]}</span></div>
+        <p class="decide"><b>KEY DECISION</b>${m.dec}</p>
+        <div class="stack">${m.stack.map(s => `<span>${s}</span>`).join('')}</div>
+        <div class="go"><button class="act" type="button" data-trace="${k}">Open trace ▸</button>${m.live ? `<a class="act pri" href="${m.live}">Run it live ▸</a>` : ''}</div>
+      </div>
+    </article>`).join('');
+  $('#archive').innerHTML = ARCHIVE.map(x => `
+    <article class="pnl mini" id="${x.id}">
+      <div class="id"><span class="lbl"><b>${x.id}</b> · ${x.w}</span>${x.gh ? `<a href="${GH + x.gh}" target="_blank" rel="noopener">code ↗</a>` : ''}</div>
+      <h4>${x.t}</h4>
+      <p class="story">${x.story}</p>
+    </article>`).join('');
+
+  const vis = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target.querySelector('video');
+    if (v) { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }
+    const t = e.target.querySelector('[data-term]'); if (t && e.isIntersecting && !t.dataset.on) { t.dataset.on = 1; runTerm(t); }
+    const r = e.target.querySelector('[data-rag]'); if (r && e.isIntersecting && !r.dataset.on) { r.dataset.on = 1; runRag(r); }
+    const f = e.target.querySelector('[data-fraud]'); if (f && e.isIntersecting && !f.dataset.on) { f.dataset.on = 1; runFraud(f); }
+  }), { threshold: .3 });
+  $$('.mission').forEach(m => vis.observe(m));
+
+  /* real job_scanner log from 11-06, replayed (email masked) */
+  const LOG = [
+    ['hd','1/3  Healing any degraded boards...'], ['','No degraded boards.'], ['hd','2/3  Scanning...'], ['wt','Scanning 552 companies with 8 workers...'],
+    ['','Airbnb                   fetched=223'], ['','MongoDB                  fetched=423'], ['','Databricks               fetched=783'], ['','Stripe                   fetched=496'],
+    ['','Datadog                  fetched=398'], ['','Scale AI                 fetched=174'], ['','Doss                     fetched=21   new=1'], ['','Greptile                 fetched=19   new=0'],
+    ['er','Instabase                ERROR: 404 Not Found'], ['','Sprinter Health          fetched=52   new=0'], ['','Layer Health             fetched=15   new=0'],
+    ['cy','------------------------------------------------------------'], ['wt','Output folder : output/11-06-26'], ['gd','Shortlisted   : 87 new relevant roles (54 eligible)'],
+    ['er','Degraded boards (8): run heal_boards.py to auto-fix'], ['hd','3/4  Emailing new roles...'], ['gd','notify: emailed 54 role(s) to r********@gmail.com'],
+    ['hd','4/4  Ingesting today\'s shortlist into the job portal...'], ['gd','Done. Portal refreshed.']
+  ];
+  function runTerm(el) {
+    let i = 0;
+    const add = () => {
+      if (i >= LOG.length) { setTimeout(() => { el.innerHTML = ''; i = 0; add(); }, 5000); return; }
+      const [c, t] = LOG[i++]; const d = document.createElement('div'); d.className = 'l ' + c; d.textContent = t; el.appendChild(d);
+      while (el.children.length > 16) el.firstChild.remove();
+      setTimeout(add, c === 'hd' ? 650 : 230);
+    };
+    add();
+  }
+  function runRag(el) {
+    const cells = $$('.chunks i', el), out = $('[data-rag-out]', el);
+    const cycle = () => {
+      cells.forEach(c => c.className = '');
+      out.textContent = 'filtering to property 118 ...';
+      const hits = [...cells.keys()].sort(() => Math.random() - .5).slice(0, 11);
+      hits.forEach((h, n) => setTimeout(() => cells[h].classList.add('hit'), 500 + n * 120));
+      setTimeout(() => { hits.slice(0, 5).forEach(h => { cells[h].classList.remove('hit'); cells[h].classList.add('top'); }); out.innerHTML = '<span style="color:var(--green)">✓</span> top 5 above cutoff · answer grounded in lease §7 (pets)'; }, 2300);
+      setTimeout(cycle, 6500);
+    };
+    cycle();
+  }
+  function runFraud(el) {
+    const layers = $$('.layer', el), v = $('[data-verdict]', el);
+    const scenarios = [{ flag: [2, 4], verdict: '⚠ risk 72 · HIGH · font mismatch + edited pixels · sent to manager for review' }, { flag: [], verdict: '✓ risk 8 · MINIMAL · document looks original' }];
+    let s = 0;
+    const cycle = () => {
+      const sc = scenarios[s++ % 2];
+      layers.forEach(l => { l.classList.remove('flag'); $('i', l).style.width = '0'; $('.v', l).textContent = '…'; });
+      v.textContent = 'running checks ...'; v.style.color = 'var(--amber)';
+      layers.forEach((l, i) => setTimeout(() => {
+        const bad = sc.flag.includes(i); l.classList.toggle('flag', bad);
+        $('i', l).style.width = bad ? '82%' : (20 + Math.random() * 25) + '%'; $('.v', l).textContent = bad ? 'FLAG' : 'ok';
+      }, 400 + i * 450));
+      setTimeout(() => { v.textContent = sc.verdict; v.style.color = sc.flag.length ? 'var(--red)' : 'var(--green)'; }, 400 + layers.length * 450 + 300);
+      setTimeout(cycle, 7600);
+    };
+    cycle();
+  }
+
+  /* ---------- walking robots (one per agent) ---------- */
+  const BOTS = [
+    { name:'rushmitha', c:'#ffb547', face:'photo.jpg', tool:'none', go:null, chat:true, says:['checking on my agents 👀','hi, I\'m Rushmitha 👋','repair_agent, nice work!','click me to ask anything','coffee first, then evals ☕'] },
+    { name:'repair_agent', c:'#ffb547', tool:'wrench', go:'M-01', says:['new work order: HVAC, 4B','asking: when are you home?','estimate from 14 invoices','waiting for manager ✋','vendor booked ✓'] },
+    { name:'retrieval', c:'#67e8f9', tool:'book', go:'M-02', says:['reading lease §7…','top 5 passages found','below cutoff, I won\'t guess','92% on 412 questions'] },
+    { name:'screening', c:'#ff7a7a', tool:'lens', go:'M-03', says:['checking pay stub fonts…','landlord replied ✓','score 91, sending to manager','this PDF looks edited ⚠'] },
+    { name:'job_scanner', c:'#4ade80', tool:'dish', go:'M-04', says:['polling 552 boards…','Databricks: 783 jobs','87 new matches today','fixing a broken board link'] },
+    { name:'cx_intern', c:'#c4b5fd', tool:'cap', go:'M-01', says:['learning Dialogflow CX 📘','building my first flow','intents, entities, forms…'] }
+  ];
+  const TOOLS = {
+    wrench:'<g transform="translate(46 30) rotate(30)"><rect x="-1.6" y="0" width="3.2" height="14" rx="1" fill="#cfd8d6"/><circle cx="0" cy="0" r="4" fill="none" stroke="#cfd8d6" stroke-width="2.4"/></g>',
+    book:'<g transform="translate(43 34)"><rect x="0" y="0" width="12" height="9" fill="#67e8f9" opacity=".9"/><line x1="6" y1="0" x2="6" y2="9" stroke="#07090a" stroke-width="1"/></g>',
+    lens:'<g transform="translate(47 33)"><circle cx="0" cy="0" r="4.5" fill="rgba(255,122,122,.25)" stroke="#ff7a7a" stroke-width="2"/><line x1="3" y1="3" x2="8" y2="8" stroke="#ff7a7a" stroke-width="2.4"/></g>',
+    dish:'<g transform="translate(32 4)"><path d="M-7 0 A7 7 0 0 0 7 0 Z" fill="#4ade80"/><line x1="0" y1="0" x2="0" y2="5" stroke="#4ade80" stroke-width="1.6"/></g>',
+    cap:'<g transform="translate(32 9)"><path d="M-11 0 L0 -5 L11 0 L0 5 Z" fill="#c4b5fd"/><line x1="9" y1="1" x2="9" y2="7" stroke="#c4b5fd" stroke-width="1.4"/></g>'
+  };
+  const botSvg = b => `<svg viewBox="0 0 64 86" aria-hidden="true"><g class="flip">
+      <g class="legL"><rect x="22" y="58" width="6" height="18" rx="2" fill="#2a3437"/><rect x="20" y="74" width="10" height="5" rx="2" fill="#3a4648"/></g>
+      <g class="legR"><rect x="36" y="58" width="6" height="18" rx="2" fill="#2a3437"/><rect x="34" y="74" width="10" height="5" rx="2" fill="#3a4648"/></g>
+      <g class="body">
+        <line x1="32" y1="5" x2="32" y2="10" stroke="#566260" stroke-width="2"/><circle cx="32" cy="4" r="3" fill="${b.c}"><animate attributeName="opacity" values="1;.3;1" dur="1.4s" repeatCount="indefinite"/></circle>
+        ${b.face ? `<defs><clipPath id="fc-${b.name}"><circle cx="32" cy="25" r="13.5"/></clipPath></defs>
+        <circle cx="32" cy="25" r="16" fill="#1a2224" stroke="${b.c}" stroke-width="2"/>
+        <image href="${b.face}" x="18.5" y="11.5" width="27" height="27" clip-path="url(#fc-${b.name})" preserveAspectRatio="xMidYMid slice"/>` : `
+        <rect x="16" y="16" width="32" height="22" rx="6" fill="#1a2224" stroke="${b.c}" stroke-width="1.6"/>
+        <rect x="21" y="21" width="22" height="11" rx="3" fill="#050707"/>
+        <rect class="eye" x="25" y="24" width="5" height="5" rx="1" fill="${b.c}"/><rect class="eye" x="34" y="24" width="5" height="5" rx="1" fill="${b.c}"/>`}
+        <rect x="19" y="40" width="26" height="20" rx="4" fill="#141b1c" stroke="#2a3437" stroke-width="1.4"/>
+        <rect x="24" y="45" width="16" height="3" rx="1" fill="${b.c}" opacity=".7"/><rect x="24" y="51" width="10" height="3" rx="1" fill="#2a3437"/>
+        <rect x="13" y="42" width="5" height="14" rx="2" fill="#2a3437"/>
+        <g class="arm"><rect x="46" y="42" width="5" height="14" rx="2" fill="#2a3437"/>${['wrench','book','lens'].includes(b.tool) ? TOOLS[b.tool] : ''}</g>
+        ${['dish','cap'].includes(b.tool) ? TOOLS[b.tool] : ''}
+      </g></g></svg>`;
+  const layer = $('#botlayer');
+  const small = () => innerWidth < 640;
+  const BW = () => small() ? 44 : 58, BH = () => small() ? 66 : 86;
+  // pick a spot anywhere on screen, but keep clear of the top bar and the chat button
+  function pickTarget() {
+    const W = innerWidth, H = innerHeight;
+    for (let k = 0; k < 20; k++) {
+      const x = 10 + Math.random() * (W - BW() - 20), y = 64 + Math.random() * (H - BH() - 80);
+      if (!(x > W - 260 && y > H - 170)) return [x, y];
+    }
+    return [W / 2, H / 2];
+  }
+  const live = small() ? BOTS.slice(0, 3) : BOTS;
+  const HELD = ['whoa, put me down!', 'wheee 🎈', 'I was working on that…', 'okay okay, where to?'];
+  const DROP = ['thanks 😅', 'back to work', 'nice view from here', 'new desk, who dis'];
+  const bots = live.map((b, i) => {
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'bot walk'; el.setAttribute('aria-label', b.chat ? 'Rushmitha, the operator. Drag to move, or click to ask a question.' : `${b.name}. Drag to move, or click to open its mission.`);
+    el.innerHTML = `<span class="bubble"></span>${botSvg(b)}<span class="tag">${b.name}</span>`;
+    layer.appendChild(el);
+    const [x, y] = pickTarget();
+    const o = { b, el, x, y, tx: 0, ty: 0, dir: 1, speed: 42 + Math.random() * 30, state: 'walk', until: performance.now() + 2500 + Math.random() * 4000, line: 0, drag: null };
+    [o.tx, o.ty] = pickTarget();
+    return o;
+  });
+  const say2 = (o, t) => { $('.bubble', o.el).textContent = t; o.el.classList.add('talk'); };
+
+  // drag to move, click to open the mission
+  bots.forEach(o => {
+    o.el.addEventListener('pointerdown', e => {
+      o.drag = { sx: e.clientX, sy: e.clientY, ox: o.x, oy: o.y, moved: false };
+      o.el.setPointerCapture(e.pointerId);
+    });
+    o.el.addEventListener('pointermove', e => {
+      const d = o.drag; if (!d) return;
+      const dx = e.clientX - d.sx, dy = e.clientY - d.sy;
+      if (!d.moved && Math.hypot(dx, dy) > 6) { d.moved = true; o.state = 'held'; o.el.classList.remove('walk', 'work'); o.el.classList.add('held'); say2(o, HELD[Math.floor(Math.random() * HELD.length)]); }
+      if (d.moved) { o.x = Math.max(0, Math.min(innerWidth - BW(), d.ox + dx)); o.y = Math.max(56, Math.min(innerHeight - BH(), d.oy + dy)); o.dir = dx < 0 ? -1 : 1; draw(o); }
+    });
+    const end = () => {
+      const d = o.drag; o.drag = null; if (!d) return;
+      if (d.moved) {
+        o.el.classList.remove('held'); o.el.classList.add('landed'); setTimeout(() => o.el.classList.remove('landed'), 450);
+        say2(o, DROP[Math.floor(Math.random() * DROP.length)]);
+        o.state = 'work'; o.until = performance.now() + 1800; [o.tx, o.ty] = pickTarget();
+      } else {
+        if (o.b.chat) { toggleChat(true); say2(o, 'ask me anything ↘'); o.state = 'work'; o.until = performance.now() + 2200; return; }
+        const t = document.getElementById(o.b.go);
+        if (t) { t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); t.classList.remove('ping'); void t.offsetWidth; t.classList.add('ping'); say2(o, 'this is my mission ↓'); o.state = 'work'; o.until = performance.now() + 2200; }
+      }
+    };
+    o.el.addEventListener('pointerup', end);
+    o.el.addEventListener('pointercancel', end);
+    o.el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); o.drag = { moved: false }; end(); } });
+    o.el.addEventListener('mouseenter', () => { if (o.state === 'walk') { o.state = 'work'; o.until = performance.now() + 2200; o.el.classList.remove('walk'); say2(o, `hi! I'm ${o.b.name} · drag me or click me`); } });
+  });
+
+  function draw(o) { o.el.style.transform = `translate(${o.x}px, ${o.y}px)`; o.el.classList.toggle('left', o.dir < 0); }
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    if (!document.hidden) bots.forEach(o => {
+      if (o.state === 'held') return;
+      if (o.state === 'walk') {
+        const dx = o.tx - o.x, dy = o.ty - o.y, dist = Math.hypot(dx, dy);
+        if (dist < 4) { [o.tx, o.ty] = pickTarget(); }
+        else { const s = o.speed * dt; o.x += dx / dist * s; o.y += dy / dist * s; if (Math.abs(dx) > 2) o.dir = dx < 0 ? -1 : 1; }
+        if (now > o.until) {
+          o.state = 'work'; o.until = now + 2600 + Math.random() * 1800;
+          o.el.classList.remove('walk'); o.el.classList.add('work');
+          say2(o, o.b.says[o.line++ % o.b.says.length]);
+        }
+      } else if (now > o.until) {
+        o.state = 'walk'; o.until = now + 4000 + Math.random() * 5000;
+        if (Math.random() < .5) [o.tx, o.ty] = pickTarget();
+        o.el.classList.remove('work', 'talk'); o.el.classList.add('walk');
+      }
+      draw(o);
+    });
+    requestAnimationFrame(loop);
+  }
+  addEventListener('resize', () => bots.forEach(o => { o.x = Math.min(o.x, innerWidth - BW()); o.y = Math.min(o.y, innerHeight - BH()); [o.tx, o.ty] = pickTarget(); draw(o); }));
+  bots.forEach(draw);
+  if (reduce) bots.forEach(o => o.el.classList.remove('walk')); else requestAnimationFrame(loop);
+
+  /* ---------- trace modal ---------- */
+  const modal = $('#modal'), sheet = $('#sheet'); let lastFocus;
+  function openTrace(k) {
+    const m = MISSIONS[k]; lastFocus = document.activeElement;
+    sheet.innerHTML = `<div class="pnl-h"><span class="lbl"><b>${m.id}</b> · trace</span><button type="button" id="mClose">ESC ✕</button></div>
+      <div class="sheet-b"><span class="lbl">${m.where}</span><h3 id="mTitle">${m.t}</h3><p>${m.what}</p>
+      <p class="story">${m.story}</p>
+      <div class="trace">${m.trace.map(([n, d, c], i) => `<div class="span"><div class="n">${String(i + 1).padStart(2, '0')}</div><div class="c"><b>${n}</b><p>${d}</p>${c ? `<code>${c}</code>` : ''}</div></div>`).join('')}
+      <div class="span res"><div class="n">✓</div><div class="c"><b>result</b><p>${m.res}</p></div></div></div>
+      <p class="decide" style="margin-top:18px"><b>KEY DECISION</b>${m.dec}</p>
+      ${m.live ? `<div class="acts" style="margin-top:18px"><a class="act pri" href="${m.live}">Run it live ▸</a></div>` : ''}</div>`;
+    modal.hidden = false; document.body.style.overflow = 'hidden'; $('#mClose').focus();
+    $('#mClose').onclick = closeTrace;
+  }
+  function closeTrace() { modal.hidden = true; document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  modal.addEventListener('click', e => { if (e.target === modal) closeTrace(); });
+  document.addEventListener('click', e => { const b = e.target.closest('[data-trace]'); if (b) openTrace(+b.dataset.trace); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') { if (!modal.hidden) closeTrace(); else if (!$('#chatw').hidden) toggleChat(false); } });
+
+  /* ---------- ops agent (scripted, runs in the browser, no AI calls, no cost) ---------- */
+  const chatw = $('#chatw'), clog = $('#chatLog');
+  // each topic: question label, keywords (more matches = better), answer, optional link, related topics
+  const KB = {
+    private: { q: 'Can you share how it was built?', w: 3, k: ['help me build','build the same','same project','replicate','recreate','clone','copy','source code','share the code','send the code','how exactly','step by step','step-by-step','architecture','implementation','implement','how did you build','how was it built','how is it built','all the technologies','which technologies','what technologies','what tools did you use','prompts','schema','database design','system design of','internals','blueprint'], a: 'I keep the internals of her work projects private, since those systems belong to the companies she built them for. I can tell you the problem each one solved and the results, and Rushmitha is happy to discuss her approach in an interview. For code you can learn from, her public notebooks are on GitHub.', go: ['Open GitHub', 'https://github.com/Rushmitha-dot/rush'], rel: ['best','why','contact'] },
+    personal: { q: 'Personal questions', w: 3, k: ['visa','sponsor','sponsorship','opt','h1b','h-1b','green card','citizen','citizenship','immigration','work authorization','authorized','age','how old','married','family','husband','kids','religion','address','where do you live','where does she live','location','located','live in','phone number','salary','pay','compensation','nationality','birthday'], a: 'I only talk about Rushmitha\'s work, projects and education. For anything else, please email her directly.', go: ['Email Rushmitha', 'mailto:rushmita1310@gmail.com'], rel: ['about','best','experience'] },
+    hello:   { q: 'Hi', k: ['hi','hello','hey','yo','good morning','good evening'], a: 'Hi! Ask me anything about Rushmitha, like her projects, experience, stack or how she tests AI systems.', rel: ['about','best','stack'] },
+    thanks:  { q: 'Thanks', k: ['thank','thanks','thx','great','cool','awesome','nice'], a: 'Happy to help. If you want to talk to Rushmitha directly, email is the fastest way.', rel: ['contact','best'] },
+    about:   { q: 'Who is Rushmitha?', w: .6, k: ['who','about','yourself','introduce','summary','profile','background','tell me about her','tell me about you'], a: 'An AI engineer and data scientist with 5+ years of Python, SQL and machine learning. She builds AI agents and the retrieval and data behind them, and she stays with them in production, testing, monitoring and fixing them. Right now she builds Google ADK agents on GCP that handle 3,000+ conversations a month.', rel: ['experience','best','why'] },
+    build:   { q: 'What do you build?', w: .6, k: ['build','do you do','work on','specialize','focus'], a: 'AI agents that do real work, plus the document retrieval and data pipelines underneath them. At Sunovee that means Google ADK agents on GCP, Gemini models, FastAPI on Cloud Run and Qdrant for search.', rel: ['best','stack','sunovee'] },
+    experience: { q: 'Walk me through your experience', k: ['experience','career','jobs','worked','work history','companies','years'], a: 'Data analyst at Glamate (2020 to 2021), data scientist on a FedEx project through Mphasis (2021 to 2022), a master\'s at Northeastern with a graduate analytics project at the campus store (2023 to 2024), and data scientist on AI and ML at Sunovee since September 2024.', rel: ['sunovee','fedex','education'] },
+    sunovee: { q: 'What do you do at Sunovee?', w: 2, k: ['sunovee','current','currently','present','now','property','current role','current job'], a: 'She\'s a data scientist on Sunovee\'s AI platform for property management, used across about 150 properties. She built the repair agent, document retrieval, applicant screening with fraud checks and a lease renewal model, and she set up the evaluation and monitoring around them.', go: ['See the missions', '#missions'], rel: ['best','rag','screening'] },
+    fedex:   { q: 'What did you do for FedEx?', k: ['fedex','mphasis','delivery','logistics','shipping'], a: 'Deliveries were getting later and costlier, and nobody could say where or why. Through Mphasis she built the AWS pipelines, data checks and delay predictions that showed FedEx operations managers which counties ran late. That guided route and hiring decisions, cutting last-mile fuel cost by 20% and manual data work by 70%.', rel: ['aws','data','experience'] },
+    glamate: { q: 'What did you do at Glamate?', k: ['glamate','analyst','beauty','skincare','first job'], a: 'Shoppers didn\'t know which skincare or haircare product suited them, so she built a recommendation chatbot that matched each shopper\'s concern and skin type to the right product. Every purchase through it earned an affiliate commission from partners like Amazon, EarnKaro, Myntra, Forest Essentials and The Ordinary. Recommendations got 20% more accurate, and her Tableau dashboards brought in 10 new partners.', rel: ['experience','ml'] },
+    education: { q: 'What\'s your education?', k: ['education','degree','study','studied','university','college','masters','master','northeastern','manipal','school','graduate'], a: 'MS in Data Analytics Engineering from Northeastern University (2024) and a B.Tech from Manipal Institute of Technology (2021). At Northeastern she built a full inventory system for the campus store, with an Oracle database, FastAPI and PL/SQL reorder alerts.', rel: ['certs','experience'] },
+    certs:   { q: 'Which certifications do you have?', k: ['cert','certification','certified','certificate','credential','aws certified','azure','databricks','coursera'], a: 'AWS Certified Data Engineer, Microsoft Azure AI Engineer (AI-102) and Azure AI Apps and Agents Developer (AI-103), plus six Databricks GenAI and agent badges, Anthropic courses and Coursera courses. Every one links to its verification page on this site.', go: ['See certifications', '#certs'], rel: ['education','stack'] },
+    best:    { q: 'Show me your best project', k: ['best','favorite','proud','project','projects','portfolio','showcase','example'], a: 'The repair assistant. Booking a repair used to take about two days of back-and-forth. Now residents describe the problem in chat, the property manager approves, and a vendor is booked in about 12 hours. It saves manager hours and stops overpaying for repairs.', go: ['Open mission M-01', '#M-01'], rel: ['repair','rag','scanner'] },
+    repair:  { q: 'How does the repair assistant work?', k: ['repair','work order','maintenance','vendor','estimate','invoice','booking'], a: 'Booking one repair used to take about two days of messages between residents, managers and vendors. With her repair assistant, residents describe the problem in chat, the manager approves and a vendor is booked, now in about 12 hours. Property management companies save staff time, stop overpaying for repairs and keep residents happier.', go: ['Try the live demo', 'demo.html'], rel: ['decision','eval','adk'] },
+    rag:     { q: 'Tell me about the retrieval work', k: ['rag','retrieval','search','documents','vector','embedding','qdrant','llamaindex','chunk','lease','bm25','hybrid'], a: 'Residents kept asking about fees, pets and rules, and the answers were buried in each property\'s documents. Her retrieval system answers from their own lease, so staff stop answering the same questions by hand. It reached a 92% hit rate on a labeled test set and cut unsupported answers by 40%.', go: ['Open mission M-02', '#M-02'], rel: ['eval','stack'] },
+    screening: { q: 'What is the fraud check project?', k: ['screening','fraud','pay stub','paystub','applicant','tenant','forensic','buildium','playwright'], a: 'Screening rental applications was slow, and edited pay stubs slipped through. Her system scores every application the same way with clear reasons and flags pay stubs that look edited, while the manager still decides. That protects owners from months of unpaid rent and fills units sooner.', go: ['Open mission M-03', '#M-03'], rel: ['ml','decision'] },
+    renewal: { q: 'Tell me about the BigQuery model', k: ['bigquery','renewal','churn','bqml','lease renewal','retention'], a: 'Managers used to learn a resident was leaving only when notice arrived. Her BigQuery ML model gives property managers and owners a ranked list about 90 days ahead, so they can reach out early and avoid vacancy and re-leasing costs.', rel: ['ml','data','gcp'] },
+    scanner: { q: 'What is the job scanner?', k: ['scanner','job scanner','jobs','job search','scrape','scraping','career','automation','automate'], a: 'Checking hundreds of career sites by hand every day isn\'t possible. She built a tool for her own job search that scans them daily and shortlists fresh roles that fit. One run shortlisted 87 new relevant roles in about two minutes, and any job seeker can set it up for their own target roles.', go: ['Open mission M-04', '#M-04'], rel: ['python','best'] },
+    notebooks: { q: 'What\'s on your GitHub?', k: ['github','notebook','code','repo','fine-tune','fine tuning','finetune','lora','sql benchmark','nl to sql','text to sql'], a: 'Notebooks including medical LLM fine-tuning with LoRA, natural language to SQL on the Spider benchmark, an agent with long-term memory, a fraud model drift monitor with Evidently, and a RAG course assistant with a faithfulness judge.', go: ['Open GitHub', 'https://github.com/Rushmitha-dot/rush'], rel: ['ml','rag'] },
+    stack:   { q: 'What\'s your tech stack?', k: ['stack','tech','tools','technologies','languages','skills','framework'], a: 'Python and SQL every day. Google ADK, Gemini and OpenAI models, LlamaIndex and Qdrant for AI work. GCP and AWS for cloud. FastAPI and Docker for services, and tracing and dashboards for quality.', rel: ['gcp','aws','ml'] },
+    gcp:     { q: 'How much GCP have you used?', k: ['gcp','google cloud','cloud run','cloud storage','artifact registry','vertex'], a: 'She uses it every day at Sunovee, mainly Cloud Run, Cloud Storage, BigQuery and Gemini models.', rel: ['adk','cx','cicd'] },
+    aws:     { q: 'Have you used AWS?', k: ['aws','amazon','s3','glue','lambda','redshift','quicksight','cloudwatch'], a: 'Yes. She\'s an AWS Certified Data Engineer, and for FedEx she built pipelines on S3, Lambda and Glue with PySpark, a Redshift star schema, CloudWatch alerts and QuickSight dashboards.', rel: ['fedex','data'] },
+    azure:   { q: 'What about Azure?', k: ['azure','microsoft'], a: 'She holds two Microsoft certifications, Azure AI Engineer (AI-102) and Azure AI Apps and Agents Developer (AI-103). Her day-to-day production work is on GCP.', rel: ['certs','gcp'] },
+    adk:     { q: 'What is Google ADK and how do you use it?', k: ['adk','agent development kit','multi-agent','multi agent','agents','agentic','tool calling','tools'], a: 'Google\'s Agent Development Kit, for building agents that use tools. She builds specialist agents with guardrails, like a person approving anything that costs money.', rel: ['repair','cx','decision'] },
+    cx:      { q: 'Do you know Dialogflow CX?', k: ['dialogflow','cx','flow','intent','ccai','contact center','conversational agents'], a: 'Honestly, production traffic runs on Google ADK today. The team is bringing Dialogflow CX in, and she\'s building the first flow, which is maintenance intake with intents, entity types, form parameters and Python webhooks on Cloud Run.', rel: ['adk','gcp'] },
+    llm:     { q: 'Which LLMs have you worked with?', k: ['llm','model','models','gemini','gpt','openai','claude'], a: 'Mostly Gemini 2.5 models, plus OpenAI GPT-4o and GPT-4o mini. She compares models on a labeled test set before choosing, and Gemini 2.5 Flash won because it matched GPT-4o\'s accuracy at a fraction of the cost.', rel: ['eval','cost'] },
+    cost:    { q: 'How do you think about cost?', k: ['cost','price','cheap','expensive','budget','tokens','latency'], a: 'Measure before choosing. On her test set Gemini 2.5 Flash matched GPT-4o\'s accuracy, was faster, and cost about 7 times less, so Flash went to production.', rel: ['llm','eval'] },
+    eval:    { q: 'How do you test AI systems?', k: ['test','testing','eval','evaluation','evaluate','measure','metric','metrics','accuracy','quality','benchmark','ragas','hallucination'], a: 'Labeled test sets first, a quality gate that runs before every release, and tracing to see exactly where an answer went wrong. For her, better always means a number.', rel: ['monitoring','cicd'] },
+    monitoring: { q: 'How do you monitor in production?', k: ['monitor','monitoring','observability','prometheus','grafana','phoenix','evidently','drift','tracing','alert'], a: 'Tracing, dashboards and drift alerts, which she set up on the data science side. Responses stay under 2 seconds at 99.5% uptime.', rel: ['eval','cicd'] },
+    cicd:    { q: 'How do you deploy?', k: ['deploy','deployment','ci','cd','cicd','ci/cd','jenkins','docker','pipeline','release','mlops','production'], a: 'Automated tests and a quality gate run on every change, and a release reaches production in about 15 minutes.', rel: ['monitoring','gcp'] },
+    security: { q: 'How do you handle safety and privacy?', k: ['security','safe','safety','privacy','pii','personal data','prompt injection','guardrail','guardrails','compliance','risk'], a: 'Authentication, personal-data masking and prompt-injection checks, plus a person approving anything that costs money.', rel: ['decision','monitoring'] },
+    decision: { q: 'What\'s a hard decision you made?', k: ['decision','tradeoff','trade-off','challenge','difficult','hard','problem you solved','mistake','failure','learned','lesson'], a: 'Early on, the model was doing math it shouldn\'t. She moved every calculation into code and kept the model for understanding language, and she made the assistant say I don\'t know rather than guess. Both made it more trustworthy than a cleverer prompt would have.', rel: ['repair','security'] },
+    python:  { q: 'How strong is your Python and SQL?', k: ['python','sql','pandas','coding','programming','postgres','postgresql','mysql','database'], a: 'Python and SQL are daily tools. FastAPI services, data pipelines, Playwright automation and evaluation scripts in Python. Window functions, CTEs and BigQuery ML in SQL, plus PostgreSQL, MySQL, SQL Server, Oracle and MongoDB.', rel: ['data','stack'] },
+    data:    { q: 'Do you do data engineering?', k: ['data engineering','etl','pyspark','spark','pipeline','pipelines','warehouse','data quality','airflow'], a: 'Yes. For FedEx she built daily ETL on AWS Glue with PySpark and data quality checks that caught 98% of issues early. At Sunovee she built the document ingestion pipeline and does the BigQuery work.', rel: ['fedex','aws'] },
+    ml:      { q: 'What machine learning have you done?', k: ['machine learning','ml','classification','regression','scikit','sklearn','pytorch','tensorflow','nlp','deep learning','forecast'], a: 'Delay prediction for FedEx with Scikit-Learn, a lease renewal model in BigQuery ML, NLP on reviews at Glamate (NLTK, Hugging Face, VADER, spaCy), LoRA fine-tuning in PyTorch, and classic classifiers like the heart disease risk model tuned for recall.', rel: ['renewal','notebooks'] },
+    why:     { q: 'Why should we hire you?', k: ['why','hire','strength','strongest','good at','best at','superpower','stand out','different','value','fit'], a: 'Three reasons. She ships agents to production and stays with them after launch. She measures everything with labeled test sets, so "better" is a number. And she designs for safety, which means code does the math and a person approves anything that costs money.', rel: ['best','eval','contact'] },
+    team:    { q: 'How do you work with a team?', k: ['team','teamwork','collaborate','stakeholder','communication','agile','scrum','lead','leadership','manager'], a: 'She works closely with engineers and with the property managers who use the system, to find the real problem first. At FedEx she was sprint lead for bi-weekly Agile sprints and presented results to senior stakeholders.', rel: ['experience','decision'] },
+    roles:   { q: 'What roles are you looking for?', k: ['role','roles','looking for','open to','position','opportunity','job','available','availability'], a: 'AI engineering and data science roles, especially building agents, retrieval and the evaluation around them. For anything else, please email her directly.', go: ['Email Rushmitha', 'mailto:rushmita1310@gmail.com'], rel: ['why','contact'] },
+    contact: { q: 'How do I reach you?', k: ['contact','email','reach','hire her','talk','call','connect'], a: 'Email is fastest at rushmita1310@gmail.com. Her public code is on GitHub at Rushmitha-dot.', go: ['Email Rushmitha', 'mailto:rushmita1310@gmail.com'], rel: ['why','best'] },
+    bot:     { q: 'Are you a real AI?', k: ['are you real','are you ai','llm','chatgpt','who made you','how do you work','scripted','bot'], a: 'No, I\'m a small scripted agent that runs in your browser, with no AI model and no cost. That means I answer instantly and never make things up. For anything I don\'t know, email Rushmitha.', rel: ['about','contact'] },
+    robots:  { q: 'What are the little robots?', k: ['robot','robots','walking','little guys','drag'], a: 'Each robot is one of her agents: repair_agent (wrench), retrieval (book), screening (magnifying glass), job_scanner (satellite dish) and cx_intern (graduation cap, still learning Dialogflow CX). Drag them around, or click one to jump to its mission.', rel: ['best','cx'] }
+  };
+  const START = ['about', 'best', 'why', 'stack'];
+  const norm = t => ' ' + t.toLowerCase().replace(/[^a-z0-9+/#\s-]/g, ' ').replace(/\s+/g, ' ') + ' ';
+  const escRe = x => x.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
+  function match(text) {
+    const t = norm(text); let best = null, score = 0;
+    for (const [id, it] of Object.entries(KB)) {
+      let s = 0;
+      it.k.forEach(k => {
+        const kk = k.toLowerCase().trim(), words = kk.split(' ').length;
+        const hit = words === 1 && kk.length >= 4 ? new RegExp('\\s' + escRe(kk) + '[a-z]*\\s').test(t) : t.includes(' ' + kk + ' ');
+        if (hit) s += words * (kk.length > 3 ? 2 : 1) * (it.w || 1);
+      });
+      if (s > score) { score = s; best = id; }
+    }
+    return score > 0 ? best : null;
+  }
+  function say(cls, html) { const d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; clog.appendChild(d); clog.scrollTop = clog.scrollHeight; }
+  const esc = t => t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  function answer(id, typed) {
+    const it = KB[id];
+    say('u', esc(typed || it.q));
+    setTimeout(() => say('a', it.a + (it.go ? `<br><a class="lnk" href="${it.go[1]}"${it.go[1].startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${it.go[0]} ▸</a>` : '')), 380);
+    renderSugg(it.rel || START);
+  }
+  function renderSugg(ids) { $('#sugg').innerHTML = ids.filter(i => KB[i]).map(i => `<button type="button" data-k="${i}">${KB[i].q}</button>`).join(''); }
+  $('#sugg').addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b) answer(b.dataset.k); });
+  $('#chatForm').addEventListener('submit', e => {
+    e.preventDefault(); const v = $('#chatIn').value.trim(); if (!v) return; $('#chatIn').value = '';
+    const id = match(v);
+    if (id) answer(id, v);
+    else { say('u', esc(v)); setTimeout(() => say('a', 'Good question, but it\'s outside what I know. I\'m a small scripted agent. Try one of these, or email Rushmitha and she\'ll answer it herself.<br><a class="lnk" href="mailto:rushmita1310@gmail.com">Email Rushmitha ▸</a>'), 380); renderSugg(START); }
+  });
+  clog.addEventListener('click', e => { const a = e.target.closest('a.lnk'); if (a && a.getAttribute('href').startsWith('#')) toggleChat(false); });
+  let greeted = false;
+  function toggleChat(open) {
+    chatw.hidden = !open;
+    if (open && !greeted) { greeted = true; say('a', 'Hi, I\'m Rushmitha\'s ops agent. Ask me about her projects, experience, stack, certifications or how she builds and tests AI. Type a question or tap one below.'); renderSugg(START); }
+    if (open) $('#chatIn').focus();
+  }
+  $('#dockBtn').onclick = () => toggleChat(chatw.hidden);
+  $('#askBtn').onclick = () => toggleChat(true);
+  $('#chatClose').onclick = () => toggleChat(false);
+
+  /* ---------- active tab ---------- */
+  const tabs = $$('.tabs a');
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) tabs.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+  ['overview', 'missions', 'flightlog', 'certs', 'channel'].forEach(id => io.observe(document.getElementById(id)));
+})();
 </script>
 </body>
 </html>
