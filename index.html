@@ -160,7 +160,9 @@
   .viz .q { color:var(--head); border:1px solid var(--line2); padding:8px 10px; align-self:flex-start; }
   .viz .chunks { display:grid; grid-template-columns:repeat(12, 1fr); gap:4px; }
   .viz .chunks i { height:20px; background:#12191a; border:1px solid var(--line); transition:background .3s, border-color .3s; }
-  .viz .chunks i.hit { background:rgba(103,232,249,.25); border-color:var(--cyan); }
+  .viz .chunks i.vec { background:rgba(103,232,249,.28); border-color:var(--cyan); }
+  .viz .chunks i.kw { background:rgba(167,139,250,.3); border-color:#a78bfa; }
+  .viz .chunks i.vec.kw { background:linear-gradient(135deg, rgba(103,232,249,.45) 50%, rgba(167,139,250,.5) 50%); border-color:#c4b5fd; }
   .viz .chunks i.top { background:var(--amber); border-color:var(--amber); }
   .viz .legend { display:flex; gap:16px; color:var(--muted); font-size:11.5px; flex-wrap:wrap; }
   .viz .legend span::before { content:""; display:inline-block; width:9px; height:9px; margin-right:6px; vertical-align:-1px; background:var(--c); }
@@ -587,9 +589,9 @@
   ];
 
   const monHtml = m => {
-    if (m.mon === 'video') return `<div class="mon-h"><span>CAM 01 · repair_agent</span><span class="rec">REC · replay</span></div><div class="screen"><video src="media/repair-demo.mp4" poster="media/repair-demo-poster.jpg" muted loop playsinline preload="metadata" aria-label="Screen recording of the repair assistant handling three requests"></video></div>`;
+    if (m.mon === 'video') return `<div class="mon-h"><span>CAM 01 · repair_agent</span><span class="rec">REC · replay</span></div><div class="screen"><video src="repair-demo.mp4" poster="repair-demo-poster.jpg" muted loop playsinline preload="metadata" aria-label="Screen recording of the repair assistant handling three requests"></video></div>`;
     if (m.mon === 'term') return `<div class="mon-h"><span>TTY · job_scanner</span><span class="rec">real log · 11-06</span></div><div class="screen"><div class="term" data-term></div></div>`;
-    if (m.mon === 'rag') return `<div class="mon-h"><span>VIZ · retrieval</span><span>live sim</span></div><div class="screen"><div class="viz" data-rag><div class="q">› "Can I keep a cat in unit 4B?"</div><div class="chunks">${'<i></i>'.repeat(48)}</div><div class="legend"><span style="--c:#12191a">chunk</span><span style="--c:rgba(103,232,249,.4)">vector or BM25 hit</span><span style="--c:#ffb547">top 5 after RRF</span></div><div data-rag-out style="color:var(--muted)">filtering to property 118 ...</div></div></div>`;
+    if (m.mon === 'rag') return `<div class="mon-h"><span>VIZ · retrieval</span><span>live sim</span></div><div class="screen"><div class="viz" data-rag><div class="q">› "Can I keep a cat in unit 4B?"</div><div class="chunks">${'<i></i>'.repeat(48)}</div><div class="legend"><span style="--c:#12191a">chunk</span><span style="--c:rgba(103,232,249,.55)">vector hit</span><span style="--c:rgba(167,139,250,.6)">BM25 keyword hit</span><span style="--c:linear-gradient(135deg,#67e8f9 50%,#a78bfa 50%)">both</span><span style="--c:#ffb547">top 5 after RRF</span></div><div data-rag-out style="color:var(--muted)">filtering to property 118 ...</div></div></div>`;
     if (m.mon === 'fraud') return `<div class="mon-h"><span>VIZ · paystub_check</span><span>live sim</span></div><div class="screen"><div class="viz" data-fraud><div class="q">› paystub_march.pdf</div><div class="layers">${['document type','pdf metadata','font consistency','text vs image','pixel noise (ELA)','clone detection','AI vision check'].map(n => `<div class="layer"><span>${n}</span><div class="bar"><i></i></div><span class="v">…</span></div>`).join('')}</div><div class="verdict" data-verdict>running checks ...</div></div></div>`;
   };
   $('#missionList').innerHTML = MISSIONS.map((m, k) => `
@@ -647,10 +649,18 @@
     const cycle = () => {
       cells.forEach(c => c.className = '');
       out.textContent = 'filtering to property 118 ...';
-      const hits = [...cells.keys()].sort(() => Math.random() - .5).slice(0, 11);
-      hits.forEach((h, n) => setTimeout(() => cells[h].classList.add('hit'), 500 + n * 120));
-      setTimeout(() => { hits.slice(0, 5).forEach(h => { cells[h].classList.remove('hit'); cells[h].classList.add('top'); }); out.innerHTML = '<span style="color:var(--green)">✓</span> top 5 above cutoff · answer grounded in lease §7 (pets)'; }, 2300);
-      setTimeout(cycle, 6500);
+      const pool = [...cells.keys()].sort(() => Math.random() - .5);
+      const both = pool.slice(0, 4), vecOnly = pool.slice(4, 8), kwOnly = pool.slice(8, 12);
+      const vec = [...both, ...vecOnly].sort(() => Math.random() - .5), kw = [...both, ...kwOnly].sort(() => Math.random() - .5);
+      setTimeout(() => { out.innerHTML = '<span style="color:var(--cyan)">vector search</span> · matching by meaning ...'; }, 400);
+      vec.forEach((h, n) => setTimeout(() => cells[h].classList.add('vec'), 600 + n * 110));
+      setTimeout(() => { out.innerHTML = '<span style="color:#a78bfa">BM25</span> · matching by keywords ...'; }, 1600);
+      kw.forEach((h, n) => setTimeout(() => cells[h].classList.add('kw'), 1800 + n * 110));
+      setTimeout(() => {
+        [...both, vecOnly[0]].forEach(h => { cells[h].className = 'top'; });
+        out.innerHTML = '<span style="color:var(--green)">✓</span> fused · top 5 above cutoff · answer grounded in lease §7 (pets)';
+      }, 3200);
+      setTimeout(cycle, 7600);
     };
     cycle();
   }
